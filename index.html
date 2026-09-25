@@ -39,6 +39,9 @@
     <!-- Skip to content (Acessibilidade) -->
     <a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
 
+    <!-- Saudação Dinâmica -->
+    <div id="top-greeting" class="top-greeting"></div>
+
     <!-- Overlay de Fundo com Desfoque -->
     <div id="overlay" class="overlay" aria-hidden="true"></div>
 
@@ -314,17 +317,28 @@
             <span class="summary-label">Subtotal</span>
             <span id="cart-subtotal-value" class="summary-value">R$ 0,00</span>
           </div>
+          <div class="price-summary-row hidden" id="cart-savings-row" style="color: var(--color-success);">
+            <span class="summary-label">Você está economizando</span>
+            <span id="cart-savings-value" class="summary-value">- R$ 0,00</span>
+          </div>
+          <div class="price-summary-row">
+            <span class="summary-label">Frete (Entrega Especial)</span>
+            <span class="summary-value" style="color: var(--color-success);">Grátis</span>
+          </div>
           <div class="price-summary-row total-row">
             <span class="summary-label">Total Estimado</span>
-            <span id="cart-total-value" class="summary-value gold-text"
-              >R$ 0,00</span
-            >
+            <span id="cart-total-value" class="summary-value gold-text">R$ 0,00</span>
           </div>
 
-          <button id="go-to-checkout-btn" class="btn-primary-gold" disabled>
-            <span>Ir ao Pagamento</span>
-            <i data-lucide="arrow-right"></i>
-          </button>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <button id="clear-cart-btn" class="btn-secondary-outline" style="padding: 0 1rem;" aria-label="Esvaziar Carrinho" title="Esvaziar Carrinho">
+              <i data-lucide="trash-2"></i>
+            </button>
+            <button id="go-to-checkout-btn" class="btn-primary-gold" style="flex: 1;" disabled>
+              <span>Ir ao Pagamento</span>
+              <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
           <button id="continue-shopping-btn" class="btn-link-subtle">
             Continuar Navegando
           </button>
@@ -559,6 +573,29 @@
               </div>
 
               <div id="funny-comparison" class="funny-comparison"></div>
+
+              <div class="delivery-timeline">
+                <h4>Acompanhe seu pedido</h4>
+                <div class="timeline-track">
+                  <div class="timeline-step active">
+                    <div class="step-dot"></div>
+                    <span>Confirmado</span>
+                  </div>
+                  <div class="timeline-step">
+                    <div class="step-dot"></div>
+                    <span>Em separação</span>
+                  </div>
+                  <div class="timeline-step">
+                    <div class="step-dot"></div>
+                    <span>A caminho</span>
+                  </div>
+                  <div class="timeline-step">
+                    <div class="step-dot"></div>
+                    <span>Entregue</span>
+                  </div>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 1rem;">Estimativa de entrega: 3-5 dias úteis.</p>
+              </div>
 
               <div class="success-actions">
                 <button id="print-receipt-btn" class="btn-secondary-outline">

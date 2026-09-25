@@ -26,6 +26,7 @@ const catalogo = [
         olfactoryFamily: "Floral Amadeirado",
         notes: "Jasmim, Açafrão, Cedro, Âmbar Gris",
         price: 2450.00,
+        originalPrice: 2800.00,
         image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800&auto=format&fit=crop"
     },
     {
@@ -36,6 +37,7 @@ const catalogo = [
         olfactoryFamily: "Chipre Frutado",
         notes: "Abacaxi, Bétula, Almíscar, Musgo de Carvalho",
         price: 3100.00,
+        originalPrice: 3500.00,
         image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?q=80&w=800&auto=format&fit=crop"
     },
     {
@@ -46,6 +48,7 @@ const catalogo = [
         olfactoryFamily: "Oriental Especiado",
         notes: "Folha de Tabaco, Baunilha, Cacau, Fava Tonka",
         price: 2150.00,
+        originalPrice: 2400.00,
         image: "https://images.unsplash.com/photo-1595425964071-5b721869f109?q=80&w=800&auto=format&fit=crop"
     },
     {
@@ -127,6 +130,7 @@ let toastTimeout;
 let currentTotalValue = 0;
 let pixInterval;
 let curiosityInterval;
+let cartIdleTimeout;
 
 const curiosities = [
     "Você sabia? O âmbar gris é um ingrediente raríssimo usado para fixar fragrâncias.",
@@ -136,6 +140,23 @@ const curiosities = [
     "Alguns perfumes de nicho demoram meses para macerar antes de serem engarrafados.",
     "Na alta perfumaria, a íris é considerada uma das matérias-primas mais caras do mundo."
 ];
+
+// Reset cart idle
+function resetCartIdle() {
+    clearTimeout(cartIdleTimeout);
+    const btn = document.getElementById('go-to-checkout-btn');
+    if(btn) btn.classList.remove('pulse-btn');
+    if (cart.length > 0) {
+        cartIdleTimeout = setTimeout(() => {
+            const btnCheckout = document.getElementById('go-to-checkout-btn');
+            if (btnCheckout && !btnCheckout.disabled) {
+                btnCheckout.classList.add('pulse-btn');
+            }
+        }, 8000); // 8 segundos de inatividade
+    }
+}
+document.addEventListener('mousemove', resetCartIdle);
+document.addEventListener('keydown', resetCartIdle);
 
 // ==========================================================================
 // CACHE DO DOM
@@ -530,10 +551,27 @@ function updateCartUI() {
         return total + (item ? item.price : 0);
     }, 0);
 
+    const totalOriginalPrice = cart.reduce((total, currentId) => {
+        const item = catalogo.find(p => p.id === currentId);
+        return total + (item ? (item.originalPrice || item.price) : 0);
+    }, 0);
+
+    const savings = totalOriginalPrice - totalPrice;
+
     // Renderizar Itens Únicos
     uniqueItems.forEach(produto => {
         // REQUISITO ACADÊMICO: Uso de FILTER (contar quantidade)
         const quantity = cart.filter(id => id === produto.id).length;
+        
+        let priceHTML = `<div class="cart-item-price">${formatPrice(produto.price)}</div>`;
+        if (produto.originalPrice && produto.originalPrice > produto.price) {
+            priceHTML = `
+                <div class="cart-item-price">
+                    <span style="text-decoration: line-through; font-size: 0.75rem; color: var(--text-secondary); margin-right: 4px;">${formatPrice(produto.originalPrice)}</span>
+                    <span style="color: var(--color-success);">${formatPrice(produto.price)}</span>
+                </div>
+            `;
+        }
         
         const itemEl = document.createElement('div');
         itemEl.className = 'cart-item-card';
@@ -542,7 +580,7 @@ function updateCartUI() {
             <div class="cart-item-details">
                 <span class="cart-item-brand">${produto.brand}</span>
                 <h4 class="cart-item-name">${produto.name}</h4>
-                <div class="cart-item-price">${formatPrice(produto.price)}</div>
+                ${priceHTML}
                 <div class="cart-item-controls">
                     <button class="qty-btn remove-qty" data-id="${produto.id}" aria-label="Diminuir quantidade">-</button>
                     <span class="qty-display" aria-label="Quantidade: ${quantity}">${quantity}</span>
@@ -558,6 +596,18 @@ function updateCartUI() {
 
     const formattedTotal = formatPrice(totalPrice);
     
+    // Atualiza a linha de economia
+    const savingsRow = document.getElementById('cart-savings-row');
+    const savingsValue = document.getElementById('cart-savings-value');
+    if (savingsRow && savingsValue) {
+        if (savings > 0) {
+            savingsRow.classList.remove('hidden');
+            savingsValue.textContent = `- ${formatPrice(savings)}`;
+        } else {
+            savingsRow.classList.add('hidden');
+        }
+    }
+    
     // Animação do total em vez de troca seca (só faz se mudou)
     if (totalPrice !== currentTotalValue) {
         animateValue(DOM.cartSubtotal, currentTotalValue, totalPrice, 600);
@@ -572,6 +622,12 @@ function updateCartUI() {
     
     currentTotalValue = totalPrice; // Atualiza o estado global
     lucide.createIcons();
+    
+    // Animação GSAP Stagger
+    gsap.fromTo('.cart-item-card', 
+        { y: 20, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: "power2.out" }
+    );
 }
 
 function updateCheckoutUI(uniqueItems, totalPrice) {
@@ -851,25 +907,62 @@ function setupEventListeners() {
     // Delegação de Eventos para interações dentro do Grid (Adicionar)
     DOM.productGrid.addEventListener('click', (e) => {
         const addBtn = e.target.closest('.btn-add-cart');
-        if (addBtn && !addBtn.classList.contains('added')) {
+        if (addBtn && !addBtn.classList.contains('added') && !addBtn.disabled) {
             const id = parseInt(addBtn.dataset.id);
+            
+            // Proteção contra duplo clique (Debounce disable)
+            addBtn.disabled = true;
             
             // 1. Feedback visual no botão (Fica verde)
             addBtn.classList.add('added');
             const span = addBtn.querySelector('span');
             span.innerHTML = '<i data-lucide="check" style="width: 14px; height: 14px; margin-right: 4px; display: inline-block; vertical-align: middle;"></i>Adicionado';
-            lucide.createIcons(); // renderizar o ícone de check novo
+            lucide.createIcons();
             
-            // 2. Adiciona ao carrinho internamente
-            addToCart(id);
+            // ANIMAÇÃO VOANDO PRO CARRINHO
+            const card = addBtn.closest('.product-card');
+            const img = card.querySelector('img');
+            const cartIcon = document.getElementById('cart-toggle-btn');
+            
+            if (img && cartIcon) {
+                const clone = img.cloneNode();
+                const imgRect = img.getBoundingClientRect();
+                const cartRect = cartIcon.getBoundingClientRect();
+                
+                clone.style.position = 'fixed';
+                clone.style.left = imgRect.left + 'px';
+                clone.style.top = imgRect.top + 'px';
+                clone.style.width = imgRect.width + 'px';
+                clone.style.height = imgRect.height + 'px';
+                clone.style.zIndex = '9999';
+                clone.style.borderRadius = '8px';
+                clone.style.opacity = '0.8';
+                clone.style.pointerEvents = 'none';
+                document.body.appendChild(clone);
+                
+                gsap.to(clone, {
+                    x: cartRect.left - imgRect.left,
+                    y: cartRect.top - imgRect.top,
+                    scale: 0.1,
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        clone.remove();
+                        // 2. Adiciona ao carrinho internamente após voar
+                        addToCart(id);
+                        // Abre carrinho
+                        openCart();
+                    }
+                });
+            } else {
+                addToCart(id);
+                setTimeout(() => openCart(), 300);
+            }
 
-            // 3. NOVIDADE: Abre a gaveta lateral do carrinho automaticamente
+            // 4. Reverte o botão e reativa-o após 1.5s
             setTimeout(() => {
-                openCart();
-            }, 300); // pequeno delay para o usuário ver o botão verde antes de abrir
-
-            // 4. Reverte o botão após 1.5s (pronto para ser clicado novamente se fechar o carrinho)
-            setTimeout(() => {
+                addBtn.disabled = false;
                 addBtn.classList.remove('added');
                 span.innerHTML = '<i data-lucide="plus" style="width: 14px; height: 14px; margin-right: 4px; display: inline-block; vertical-align: middle;"></i>Adicionar ao Carrinho';
                 lucide.createIcons();
@@ -1013,6 +1106,42 @@ function setupEventListeners() {
         printBtn.addEventListener('click', () => {
             window.print();
         });
+    }
+
+    // Esvaziar carrinho
+    const clearCartBtn = document.getElementById('clear-cart-btn');
+    if (clearCartBtn) {
+        clearCartBtn.addEventListener('click', () => {
+            if(confirm("Tem certeza que deseja esvaziar seu carrinho?")) {
+                cart = [];
+                saveCartToStorage();
+                updateCartUI();
+                DOM.cartBadge.classList.remove('bump');
+                void DOM.cartBadge.offsetWidth;
+                DOM.cartBadge.classList.add('bump');
+            }
+        });
+    }
+
+    // Aviso antes de sair da página
+    window.addEventListener('beforeunload', (e) => {
+        if (cart.length > 0) {
+            e.preventDefault();
+            e.returnValue = ''; // Exigido por alguns navegadores
+        }
+    });
+
+    // Saudação de horário no top greeting
+    const greetingEl = document.getElementById('top-greeting');
+    if (greetingEl) {
+        const hour = new Date().getHours();
+        if (hour < 12) {
+            greetingEl.textContent = 'Bom dia! Comece o dia com uma fragrância marcante.';
+        } else if (hour < 18) {
+            greetingEl.textContent = 'Boa tarde! Renove suas energias com as melhores notas.';
+        } else {
+            greetingEl.textContent = 'Boa noite! Prepare-se para a noite com um perfume inesquecível.';
+        }
     }
 
     // Confirmação de Compra — com barra de progresso
