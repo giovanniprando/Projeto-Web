@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>L'Or Doré | Perfumaria de Nicho & Alta Perfumaria</title>
+    <meta
+      name="description"
+      content="L'Or Doré — Boutique digital de perfumaria de nicho. Fragrâncias exclusivas de Maison Francis Kurkdjian, Creed, Le Labo, Tom Ford e mais. Alta perfumaria com curadoria premium."
+    />
+    <meta name="theme-color" content="#070708" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>"
+    />
+
+    <!-- Preconnect para Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+
+    <!-- Tipografia Editorial -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Estilos Globais -->
+    <link rel="stylesheet" href="style-tema-editorial.css" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  </head>
+  <body>
+    <!-- Skip to content (Acessibilidade) -->
+    <a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
+
+    <!-- Overlay de Fundo com Desfoque -->
+    <div id="overlay" class="overlay" aria-hidden="true"></div>
+
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="toast" role="status" aria-live="polite">
+      <i data-lucide="check-circle" class="toast-icon"></i>
+      <span id="toast-message">Fragrância adicionada à sua coleção.</span>
+    </div>
+
+    <!-- Cabeçalho Principal -->
+    <header class="site-header" id="site-header">
+      <div class="header-container">
+        <button
+          class="mobile-menu-btn"
+          id="mobile-menu-btn"
+          aria-label="Abrir menu de navegação"
+          aria-expanded="false"
+          aria-controls="main-nav"
+        >
+          <i data-lucide="menu" class="menu-icon-open"></i>
+          <i data-lucide="x" class="menu-icon-close"></i>
+        </button>
+
+        <a href="#" class="brand-logo" aria-label="L'Or Doré — Página Inicial">
+          <span class="logo-accent">✦</span>
+          <span class="logo-title">L'Or Doré</span>
+          <span class="logo-subtitle">Haute Parfumerie</span>
+        </a>
+
+        <nav class="main-nav" id="main-nav" aria-label="Menu Principal">
+          <ul>
+            <li>
+              <button class="nav-link active" data-category="todos">
+                Coleção Completa
+              </button>
+            </li>
+            <li>
+              <button class="nav-link" data-category="Feminino">
+                Feminino
+              </button>
+            </li>
+            <li>
+              <button class="nav-link" data-category="Masculino">
+                Masculino
+              </button>
+            </li>
+            <li>
+              <button class="nav-link" data-category="Compartilhável">
+                Compartilhável
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <!-- Busca -->
+          <div class="search-wrapper" id="search-wrapper">
+            <button
+              class="search-toggle-btn"
+              id="search-toggle-btn"
+              aria-label="Abrir busca"
+              aria-expanded="false"
+            >
+              <i data-lucide="search"></i>
+            </button>
+            <div class="search-panel" id="search-panel" role="search">
+              <input
+                type="search"
+                id="search-input"
+                class="search-input"
+                placeholder="Buscar fragrâncias..."
+                aria-label="Buscar fragrâncias"
+                autocomplete="off"
+              />
+              <button
+                class="search-close-btn"
+                id="search-close-btn"
+                aria-label="Fechar busca"
+              >
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Ordenação -->
+          <div class="sort-wrapper">
+            <select
+              id="sort-select"
+              class="sort-select"
+              aria-label="Ordenar produtos"
+            >
+              <option value="default">Ordenar</option>
+              <option value="price-asc">Menor Preço</option>
+              <option value="price-desc">Maior Preço</option>
+              <option value="name-asc">A — Z</option>
+              <option value="name-desc">Z — A</option>
+            </select>
+          </div>
+
+          <!-- Carrinho -->
+          <button
+            id="cart-toggle-btn"
+            class="cart-trigger-btn"
+            aria-label="Abrir Carrinho"
+            aria-expanded="false"
+          >
+            <i data-lucide="shopping-bag"></i>
+            <span class="cart-trigger-label">Carrinho</span>
+            <span id="cart-badge" class="cart-badge" aria-live="polite">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main id="main-content">
+      <!-- Hero Section -->
+      <section class="hero-section" aria-label="Banner principal">
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-visual">
+          <div class="hero-glow"></div>
+        </div>
+        <div class="hero-content">
+          <p class="hero-tagline" aria-hidden="true">
+            Edições Limitadas & Extratos Raros
+          </p>
+          <h1 class="hero-title">
+            <span class="hero-title-line">A Arte da</span>
+            <span class="hero-title-line hero-title-accent"
+              >Perfumaria de Nicho</span
+            >
+          </h1>
+          <p class="hero-description">
+            Fragrâncias exclusivas formuladas pelos mestres perfumistas mais
+            renomados do mundo. Alquimia pura convertida em elegância atemporal.
+          </p>
+          <a href="#catalog-section" class="btn-hero">
+            <span>Explorar a Coleção</span>
+            <i data-lucide="arrow-down"></i>
+          </a>
+        </div>
+        <div class="hero-scroll-indicator" aria-hidden="true">
+          <span class="scroll-line"></span>
+        </div>
+      </section>
+
+      <!-- Seção do Catálogo -->
+      <section id="catalog-section" class="catalog-section">
+        <header class="section-header">
+          <span class="section-badge">Exclusividade L'Or Doré</span>
+          <h2 class="section-title">Fragrâncias em Destaque</h2>
+          <div class="gold-separator"></div>
+        </header>
+
+        <!-- Contagem de resultados -->
+        <div class="catalog-meta" aria-live="polite">
+          <span id="product-count" class="product-count"></span>
+        </div>
+
+        <!-- Grid de Produtos -->
+        <div
+          id="product-grid"
+          class="product-grid"
+          role="region"
+          aria-label="Catálogo de Perfumes"
+        >
+          <!-- Injetado dinamicamente via JS -->
+        </div>
+
+        <!-- Estado: sem resultados -->
+        <div id="no-results" class="no-results hidden" role="status">
+          <i data-lucide="search-x"></i>
+          <p>Nenhuma fragrância encontrada.</p>
+          <button class="btn-link-subtle" id="clear-filters-btn">
+            Limpar filtros
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <p class="logo-title">L'Or Doré</p>
+          <p class="footer-tag">
+            Sua boutique privada de perfumaria autoral e de nicho.
+          </p>
+        </div>
+        <div class="footer-links">
+          <ul>
+            <li><a href="#catalog-section">Coleção</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+        </div>
+        <div class="footer-info">
+          <p>
+            &copy; 2026 L'Or Doré Haute Parfumerie. Projeto Acadêmico de
+            E-Commerce Premium.
+          </p>
+          <p class="footer-note">
+            Dados demonstrativos para fins acadêmicos. Preços aproximados.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CARRINHO LATERAL / PAINEL DE CHECKOUT EM TELA CHEIA -->
+    <aside
+      id="cart-sidebar"
+      class="cart-drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Carrinho de Compras"
+    >
+      <!-- VISÃO 1: Carrinho Lateral -->
+      <div id="cart-view" class="drawer-view cart-view">
+        <header class="drawer-header">
+          <div class="drawer-title-group">
+            <i data-lucide="shopping-bag" class="drawer-icon"></i>
+            <h2>Seu Carrinho</h2>
+          </div>
+          <button
+            id="close-cart-btn"
+            class="close-drawer-btn"
+            aria-label="Fechar Carrinho"
+          >
+            <i data-lucide="x"></i>
+          </button>
+        </header>
+
+        <div id="cart-items-container" class="drawer-body cart-items-list">
+          <!-- Itens injetados dinamicamente -->
+        </div>
+
+        <footer class="drawer-footer">
+          <div class="price-summary-row">
+            <span class="summary-label">Subtotal</span>
+            <span id="cart-subtotal-value" class="summary-value">R$ 0,00</span>
+          </div>
+          <div class="price-summary-row total-row">
+            <span class="summary-label">Total Estimado</span>
+            <span id="cart-total-value" class="summary-value gold-text"
+              >R$ 0,00</span
+            >
+          </div>
+
+          <button id="go-to-checkout-btn" class="btn-primary-gold" disabled>
+            <span>Ir ao Pagamento</span>
+            <i data-lucide="arrow-right"></i>
+          </button>
+          <button id="continue-shopping-btn" class="btn-link-subtle">
+            Continuar Navegando
+          </button>
+        </footer>
+      </div>
+
+      <!-- VISÃO 2: Checkout em Tela Cheia (Expandido via JS/GSAP) -->
+      <div
+        id="checkout-view"
+        class="drawer-view checkout-view hidden"
+        aria-hidden="true"
+      >
+        <div class="checkout-wrapper">
+          <!-- Conteúdo do Checkout -->
+          <div id="checkout-content" class="checkout-content">
+            <header class="checkout-header">
+              <button
+                id="cancel-checkout-btn"
+                class="checkout-back-btn"
+                aria-label="Voltar ao carrinho"
+              >
+                <i data-lucide="arrow-left"></i>
+                <span>Voltar</span>
+              </button>
+              <span class="checkout-brand-tag"
+                >L'Or Doré — Finalização de Pedido</span
+              >
+              <h2 class="checkout-title">Resumo do Seu Pedido</h2>
+              <p class="checkout-subtitle">
+                Revise suas seleções exclusivas antes de confirmar o pedido.
+              </p>
+            </header>
+
+            <div class="checkout-grid">
+              <div class="checkout-items-card">
+                <h3 class="card-subtitle">
+                  <i data-lucide="package"></i> Fragrâncias Selecionadas
+                </h3>
+                <div id="checkout-summary-list" class="checkout-summary-list">
+                  <!-- Resumo Reorganizado Dinamicamente -->
+                </div>
+              </div>
+
+              <div class="checkout-payment-card">
+                <h3 class="card-subtitle">
+                  <i data-lucide="credit-card"></i> Demonstrativo Financeiro
+                </h3>
+
+                <div class="checkout-financials">
+                  <div class="financial-line">
+                    <span>Subtotal dos Itens</span>
+                    <span id="checkout-subtotal">R$ 0,00</span>
+                  </div>
+                  <div class="financial-line">
+                    <span>Envio Cortesia (Seguro Expresso)</span>
+                    <span class="gold-text">GRÁTIS</span>
+                  </div>
+                  <div class="financial-line total-line">
+                    <span>Valor Total</span>
+                    <span id="checkout-total-value" class="total-price-display"
+                      >R$ 0,00</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Método de pagamento demonstrativo -->
+                <div class="payment-method-demo">
+                  <h4 class="payment-method-title">
+                    <i data-lucide="wallet"></i>
+                    Método de Pagamento
+                  </h4>
+                  <div class="payment-options">
+                    <label class="payment-option selected">
+                      <input type="radio" name="payment" value="pix" checked />
+                      <span class="payment-option-content">
+                        <span class="payment-option-name">PIX</span>
+                        <span class="payment-option-desc"
+                          >Aprovação instantânea</span
+                        >
+                      </span>
+                    </label>
+                    <label class="payment-option">
+                      <input type="radio" name="payment" value="card" />
+                      <span class="payment-option-content">
+                        <span class="payment-option-name"
+                          >Cartão de Crédito</span
+                        >
+                        <span class="payment-option-desc"
+                          >Até 12x sem juros</span
+                        >
+                      </span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="checkout-actions">
+                  <button
+                    id="confirm-purchase-btn"
+                    class="btn-primary-gold btn-large"
+                  >
+                    <span>Confirmar e Finalizar Pedido</span>
+                    <i data-lucide="check"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tela de Confirmação Final de Compra -->
+          <div
+            id="success-message"
+            class="success-screen hidden"
+            aria-hidden="true"
+          >
+            <div class="success-card">
+              <div class="success-icon-wrapper">
+                <svg
+                  class="success-checkmark"
+                  viewBox="0 0 52 52"
+                  aria-hidden="true"
+                >
+                  <circle
+                    class="checkmark-circle"
+                    cx="26"
+                    cy="26"
+                    r="25"
+                    fill="none"
+                  />
+                  <path
+                    class="checkmark-check"
+                    fill="none"
+                    d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                  />
+                </svg>
+              </div>
+              <span class="success-badge">Pedido Confirmado</span>
+              <h2 class="success-title">Obrigado por escolher a L'Or Doré</h2>
+              <p class="success-subtitle">
+                Sua compra foi processada com sucesso e está sendo preparada
+                para envio artesanal.
+              </p>
+
+              <div class="order-manifest">
+                <h4>Itens Incluídos no Seu Pedido:</h4>
+                <p id="success-details-text" class="manifest-text"></p>
+                <p id="success-total-text" class="manifest-total"></p>
+              </div>
+
+              <button id="return-home-btn" class="btn-primary-gold">
+                <span>Retornar à Loja</span>
+                <i data-lucide="arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <script src="script.js"></script>
+  </body>
+</html>
