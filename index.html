@@ -26,7 +26,7 @@
     />
 
     <!-- Estilos Globais -->
-    <link rel="stylesheet" href="style-tema-editorial.css" />
+    <link rel="stylesheet" href="style-tema-claro.css" id="theme-stylesheet" />
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -136,6 +136,35 @@
               <option value="name-asc">A — Z</option>
               <option value="name-desc">Z — A</option>
             </select>
+          </div>
+
+          <!-- Seletor de Tema -->
+          <div
+            class="theme-switcher"
+            role="group"
+            aria-label="Selecionar tema visual"
+          >
+            <button
+              class="theme-btn"
+              data-theme="escuro"
+              aria-label="Tema Escuro"
+            >
+              Escuro
+            </button>
+            <button
+              class="theme-btn active"
+              data-theme="claro"
+              aria-label="Tema Claro"
+            >
+              Claro
+            </button>
+            <button
+              class="theme-btn"
+              data-theme="editorial"
+              aria-label="Tema Editorial"
+            >
+              Editorial
+            </button>
           </div>
 
           <!-- Carrinho -->
@@ -275,6 +304,11 @@
           <!-- Itens injetados dinamicamente -->
         </div>
 
+        <div id="cart-curiosity-container" class="cart-curiosity-container">
+          <i data-lucide="sparkles" class="curiosity-icon"></i>
+          <span id="cart-curiosity-text">Você sabia? O âmbar gris é um ingrediente raríssimo usado na alta perfumaria.</span>
+        </div>
+
         <footer class="drawer-footer">
           <div class="price-summary-row">
             <span class="summary-label">Subtotal</span>
@@ -363,7 +397,7 @@
                     Método de Pagamento
                   </h4>
                   <div class="payment-options">
-                    <label class="payment-option selected">
+                    <label class="payment-option selected" data-method="pix">
                       <input type="radio" name="payment" value="pix" checked />
                       <span class="payment-option-content">
                         <span class="payment-option-name">PIX</span>
@@ -372,7 +406,7 @@
                         >
                       </span>
                     </label>
-                    <label class="payment-option">
+                    <label class="payment-option" data-method="card">
                       <input type="radio" name="payment" value="card" />
                       <span class="payment-option-content">
                         <span class="payment-option-name"
@@ -384,6 +418,74 @@
                       </span>
                     </label>
                   </div>
+
+                  <!-- Detalhes do Pagamento -->
+                  <div class="payment-details">
+                    <!-- PIX -->
+                    <div id="pix-details" class="payment-detail-section active">
+                      <div class="pix-qrcode-box">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=LOrDorePixMock" alt="QR Code PIX">
+                      </div>
+                      <div class="pix-code-box">
+                        <input type="text" id="pix-copy-input" value="00020126580014br.gov.bcb.pix0136fake-pix-code-lordore" readonly>
+                        <button id="btn-copy-pix" class="btn-secondary-outline btn-small" type="button"><i data-lucide="copy"></i> Copiar</button>
+                      </div>
+                      <div class="pix-timer">
+                        <i data-lucide="clock"></i> Expira em <span id="pix-countdown">10:00</span>
+                      </div>
+                    </div>
+
+                    <!-- Cartão -->
+                    <div id="card-details" class="payment-detail-section hidden">
+                      <div class="visual-card">
+                        <div class="visual-card-chip"></div>
+                        <div id="visual-card-flag" class="card-flag"></div>
+                        <div id="visual-card-number" class="visual-card-number">0000 0000 0000 0000</div>
+                        <div class="visual-card-bottom">
+                          <div id="visual-card-name" class="visual-card-name">NOME IMPRESSO</div>
+                          <div id="visual-card-expiry" class="visual-card-expiry">MM/AA</div>
+                        </div>
+                      </div>
+                      <div class="card-form">
+                        <div class="form-group">
+                          <label>Número do Cartão</label>
+                          <input type="text" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19">
+                        </div>
+                        <div class="form-group">
+                          <label>Nome no Cartão</label>
+                          <input type="text" id="card-name" placeholder="Nome como no cartão">
+                        </div>
+                        <div class="form-group-row">
+                          <div class="form-group">
+                            <label>Validade</label>
+                            <input type="text" id="card-expiry" placeholder="MM/AA" maxlength="5">
+                          </div>
+                          <div class="form-group">
+                            <label>CVV</label>
+                            <input type="password" id="card-cvv" placeholder="123" maxlength="4">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label>Parcelamento</label>
+                          <select id="installment-select" class="installment-select">
+                            <!-- Preenchido via JS -->
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="security-badges">
+                  <div class="security-icons">
+                    <i data-lucide="shield-check"></i>
+                    <span>Compra 100% Segura</span>
+                  </div>
+                  <div class="security-flags">
+                    <span class="flag-icon">PIX</span>
+                    <span class="flag-icon">VISA</span>
+                    <span class="flag-icon">MASTER</span>
+                  </div>
                 </div>
 
                 <div class="checkout-actions">
@@ -394,6 +496,23 @@
                     <span>Confirmar e Finalizar Pedido</span>
                     <i data-lucide="check"></i>
                   </button>
+                  <!-- Barra de progresso do processamento -->
+                  <div
+                    id="checkout-progress-wrap"
+                    class="checkout-progress-wrap hidden"
+                  >
+                    <div class="checkout-progress-track">
+                      <div
+                        id="checkout-progress-bar"
+                        class="checkout-progress-bar"
+                      ></div>
+                    </div>
+                    <span
+                      id="checkout-progress-label"
+                      class="checkout-progress-label"
+                      >Processando pagamento...</span
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -439,10 +558,18 @@
                 <p id="success-total-text" class="manifest-total"></p>
               </div>
 
-              <button id="return-home-btn" class="btn-primary-gold">
-                <span>Retornar à Loja</span>
-                <i data-lucide="arrow-right"></i>
-              </button>
+              <div id="funny-comparison" class="funny-comparison"></div>
+
+              <div class="success-actions">
+                <button id="print-receipt-btn" class="btn-secondary-outline">
+                  <i data-lucide="printer"></i>
+                  <span>Baixar / Imprimir Recibo</span>
+                </button>
+                <button id="return-home-btn" class="btn-primary-gold">
+                  <span>Retornar à Loja</span>
+                  <i data-lucide="arrow-right"></i>
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -246,7 +246,13 @@ button, select { font-family: inherit; letter-spacing: 1px; }
 
 .checkout-summary-item { display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px dashed var(--gold-border); font-weight: 700; }
 .financial-line { display: flex; justify-content: space-between; padding: 0.5rem 0; font-weight: 800; }
-.financial-line.total-line { border-top: 2px solid var(--gold-primary); margin-top: 1rem; padding-top: 1rem; font-size: 2rem; }
+.financial-line.total-line { border-top: 3px solid var(--gold-primary); margin-top: 1rem; padding-top: 1.25rem; font-size: 2.2rem; letter-spacing: -1px; color: var(--text-primary); background: rgba(255,255,255,0.04); padding-left: 0.5rem; padding-right: 0.5rem; }
+
+/* Checkout: botão confirmar pedido com fundo branco puro para máximo contraste */
+.checkout-payment-card .btn-primary-gold,
+.checkout-view .btn-primary-gold { background: #FFF; color: #000; border-color: #FFF; }
+.checkout-payment-card .btn-primary-gold:hover:not(:disabled),
+.checkout-view .btn-primary-gold:hover:not(:disabled) { background: transparent; color: var(--gold-primary); border-color: var(--gold-primary); }
 
 .payment-method-title { font-weight: 900; margin: 2rem 0 1rem; }
 .payment-option { border: 1px solid var(--gold-border); padding: 1rem; margin-bottom: 0.5rem; cursor: pointer; display: flex; gap: 1rem; align-items: center; }
@@ -278,3 +284,104 @@ button, select { font-family: inherit; letter-spacing: 1px; }
     .main-nav.open { opacity: 1; visibility: visible; }
     .main-nav ul { flex-direction: column; align-items: center; }
 }
+
+/* ==========================================================================
+   SELETOR DE TEMA (THEME SWITCHER)
+   ========================================================================== */
+
+.theme-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid var(--gold-border);
+    border-radius: var(--radius-pill);
+    padding: 3px;
+    font-family: var(--font-sans);
+}
+
+.theme-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-pill);
+    transition: color 0.15s ease, background 0.15s ease;
+    white-space: nowrap;
+}
+
+.theme-btn:hover {
+    color: var(--gold-primary);
+}
+
+.theme-btn.active {
+    background: var(--gold-primary);
+    color: var(--bg-dark);
+    font-weight: 900;
+}
+
+@media (max-width: 900px) {
+    .theme-switcher {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   MICRO-ANIMAÇÕES DE FEEDBACK UX
+   ========================================================================== */
+
+/* 1. PULSO NO CARD ao adicionar — estilo editorial: outline forte, sem sombra difusa */
+@keyframes card-pulse {
+    0%   { outline: 2px solid transparent; }
+    40%  { outline: 2px solid var(--gold-primary); transform: scale(1.02); }
+    100% { outline: 2px solid transparent; transform: scale(1); }
+}
+.product-card.card-pulse {
+    animation: card-pulse 0.3s var(--ease-editorial) forwards;
+}
+
+/* 2. FLASH NA QUANTIDADE (+/-) */
+@keyframes qty-flash {
+    0%   { color: var(--text-primary); transform: scale(1); }
+    40%  { color: var(--gold-primary); transform: scale(1.4); font-weight: 900; }
+    100% { color: var(--text-primary); transform: scale(1); }
+}
+.qty-display.qty-flash {
+    animation: qty-flash 0.2s ease-out forwards;
+}
+
+/* 3. BARRA DE PROGRESSO DO CHECKOUT — brutalista: sem radius, fundo cinza escuro */
+.checkout-progress-wrap {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.checkout-progress-track {
+    width: 100%;
+    height: 3px;
+    background: var(--bg-surface-elevated);
+    border-radius: 0;
+    overflow: hidden;
+}
+.checkout-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--gold-primary);
+    border-radius: 0;
+    transition: width 0.1s linear;
+}
+.checkout-progress-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 800;
+    text-align: center;
+}
+

@@ -182,7 +182,9 @@ button, select { font-family: inherit; }
 }
 .hero-visual {
     flex: 1; height: 75vh;
-    background: url('https://images.unsplash.com/photo-1608528577891-eb0559d3fa06?q=80&w=1000') center/cover;
+    background: url('https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800') no-repeat center center;
+    background-size: cover;
+    background-position: center;
     border-radius: 300px 300px 0 0; /* Forma de arco/portal orgânico */
     box-shadow: var(--shadow-lg);
     position: relative;
@@ -260,7 +262,7 @@ button, select { font-family: inherit; }
     transition: transform 0.5s var(--ease-editorial); overflow: hidden; display: flex; flex-direction: column;
 }
 .cart-drawer.open { transform: translateX(0); }
-.cart-drawer.fullscreen { border-left: none; background: var(--bg-dark); }
+.cart-drawer.fullscreen { width: 100vw; border-left: none; background: var(--bg-dark); }
 .drawer-view { width: 100%; height: 100%; display: flex; flex-direction: column; }
 .cart-view { padding: var(--space-xl); }
 .drawer-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--space-lg); border-bottom: 1px solid var(--gold-border); }
@@ -290,7 +292,7 @@ button, select { font-family: inherit; }
 
 /* Checkout View Claro */
 .checkout-view { position: absolute; inset: 0; background: var(--bg-dark); padding: var(--space-3xl) var(--space-xl); overflow-y: auto; display: flex; justify-content: center; align-items: flex-start; }
-.checkout-wrapper { max-width: 1000px; width: 100%; padding-top: var(--space-xl); }
+.checkout-wrapper { max-width: 1000px; width: 100%; padding-top: var(--space-xl); margin: 0 auto; }
 .checkout-header { text-align: center; margin-bottom: var(--space-2xl); position: relative; }
 .checkout-back-btn { position: absolute; left: 0; top: 0; background: var(--bg-surface); border: 1px solid var(--gold-border); border-radius: var(--radius-pill); padding: 0.5rem 1rem; color: var(--text-primary); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; }
 .checkout-brand-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-primary); }
@@ -352,3 +354,103 @@ button, select { font-family: inherit; }
     .cart-trigger-label, .sort-select { display: none; }
     .search-panel { position: fixed; top: auto; bottom: 0; left: 0; width: 100%; padding: var(--space-lg); border-radius: 20px 20px 0 0; }
 }
+
+/* ==========================================================================
+   SELETOR DE TEMA (THEME SWITCHER)
+   ========================================================================== */
+
+.theme-switcher {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    border: 1px solid var(--gold-border);
+    border-radius: var(--radius-pill);
+    padding: 3px;
+    font-family: var(--font-sans);
+}
+
+.theme-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-pill);
+    transition: color 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+}
+
+.theme-btn:hover {
+    color: var(--gold-primary);
+}
+
+.theme-btn.active {
+    background: var(--gold-primary);
+    color: var(--bg-dark);
+    font-weight: 700;
+}
+
+@media (max-width: 900px) {
+    .theme-switcher {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   MICRO-ANIMAÇÕES DE FEEDBACK UX
+   ========================================================================== */
+
+/* 1. PULSO NO CARD ao adicionar ao carrinho */
+@keyframes card-pulse {
+    0%   { transform: translateY(-8px) scale(1);    box-shadow: 0 0 0 0 rgba(181, 149, 103, 0); }
+    40%  { transform: translateY(-8px) scale(1.03); box-shadow: 0 0 0 10px rgba(181, 149, 103, 0.2); }
+    100% { transform: translateY(-8px) scale(1);    box-shadow: 0 0 0 0 rgba(181, 149, 103, 0); }
+}
+.product-card.card-pulse {
+    animation: card-pulse 0.35s var(--ease-bounce) forwards;
+}
+
+/* 2. FLASH NA QUANTIDADE (+/-) */
+@keyframes qty-flash {
+    0%   { color: var(--text-primary); transform: scale(1); }
+    40%  { color: var(--gold-primary); transform: scale(1.35); font-weight: 800; }
+    100% { color: var(--text-primary); transform: scale(1); }
+}
+.qty-display.qty-flash {
+    animation: qty-flash 0.25s ease-out forwards;
+}
+
+/* 3. BARRA DE PROGRESSO DO CHECKOUT */
+.checkout-progress-wrap {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.checkout-progress-track {
+    width: 100%;
+    height: 3px;
+    background: var(--gold-light);
+    border-radius: 100px;
+    overflow: hidden;
+}
+.checkout-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--gold-primary), var(--gold-hover));
+    border-radius: 100px;
+    transition: width 0.1s linear;
+}
+.checkout-progress-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-align: center;
+}
+

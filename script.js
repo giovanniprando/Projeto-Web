@@ -7,6 +7,16 @@
 // ESTADO GLOBAL DA APLICAÇÃO
 // ==========================================================================
 
+// ==========================================================================
+// MAPEAMENTO DE TEMAS
+// ==========================================================================
+
+const temas = {
+    escuro: 'style.css',
+    claro: 'style-tema-claro.css',
+    editorial: 'style-tema-editorial.css'
+};
+
 const catalogo = [
     {
         id: 1,
@@ -114,6 +124,19 @@ let currentSearch = '';
 let currentSort = 'default';
 let toastTimeout;
 
+let currentTotalValue = 0;
+let pixInterval;
+let curiosityInterval;
+
+const curiosities = [
+    "Você sabia? O âmbar gris é um ingrediente raríssimo usado para fixar fragrâncias.",
+    "A flor de jasmim precisa ser colhida à mão antes do nascer do sol para manter seu aroma.",
+    "O 'nariz' é como chamamos o mestre perfumista que cria as fragrâncias.",
+    "Baccarat Rouge 540 leva esse nome pela temperatura que o cristal precisa atingir para ficar vermelho.",
+    "Alguns perfumes de nicho demoram meses para macerar antes de serem engarrafados.",
+    "Na alta perfumaria, a íris é considerada uma das matérias-primas mais caras do mundo."
+];
+
 // ==========================================================================
 // CACHE DO DOM
 // ==========================================================================
@@ -173,12 +196,95 @@ const DOM = {
 };
 
 // ==========================================================================
+// FUNÇÕES AUXILIARES DE UX / ANIMAÇÕES
+// ==========================================================================
+
+function animateValue(element, start, end, duration) {
+    if (!element) return;
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        // ease out quad
+        const easeProgress = progress * (2 - progress);
+        const current = easeProgress * (end - start) + start;
+        element.textContent = formatPrice(current);
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        } else {
+            element.textContent = formatPrice(end);
+        }
+    };
+    window.requestAnimationFrame(step);
+}
+
+function getFunnyComparison(total) {
+    if(total <= 0) return "";
+    const cafes = Math.floor(total / 15);
+    const vinhos = Math.floor(total / 150);
+    const comparacoes = [
+        `Esse valor equivale a ${cafes} cafés expressos (mas você vai cheirar bem melhor).`,
+        `Com isso daria pra encher a banheira de pétalas de rosa ${Math.max(1, Math.floor(total/500))} vezes!`,
+        `Você já economizou ${Math.max(1, Math.floor(total/300))} viagens a Paris para comprar na loja física.`,
+        `Equivale a ${vinhos} garrafas de vinho bom. Mas o perfume dura mais tempo na pele!`
+    ];
+    return comparacoes[Math.floor(Math.random() * comparacoes.length)];
+}
+
+function startCuriosities() {
+    const el = document.getElementById('cart-curiosity-text');
+    if(!el) return;
+    clearInterval(curiosityInterval);
+    curiosityInterval = setInterval(() => {
+        el.style.opacity = 0;
+        setTimeout(() => {
+            el.textContent = curiosities[Math.floor(Math.random() * curiosities.length)];
+            el.style.opacity = 1;
+        }, 300);
+    }, 4500);
+}
+
+function startPixTimer() {
+    clearInterval(pixInterval);
+    let time = 600; // 10 minutes
+    const display = document.getElementById('pix-countdown');
+    if(!display) return;
+    display.textContent = "10:00";
+    pixInterval = setInterval(() => {
+        let minutes = parseInt(time / 60, 10);
+        let seconds = parseInt(time % 60, 10);
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        display.textContent = minutes + ":" + seconds;
+        if (--time < 0) {
+            time = 0;
+            clearInterval(pixInterval);
+            display.textContent = "00:00";
+        }
+    }, 1000);
+}
+
+function updateInstallments(total) {
+    const select = document.getElementById('installment-select');
+    if(!select) return;
+    select.innerHTML = '';
+    for(let i=1; i<=12; i++) {
+        const val = total / i;
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `${i}x de ${formatPrice(val)} sem juros`;
+        select.appendChild(opt);
+    }
+}
+
+// ==========================================================================
 // INICIALIZAÇÃO E PERSISTÊNCIA (LOCALSTORAGE)
 // ==========================================================================
 
 function init() {
     loadCartFromStorage();
     setupEventListeners();
+    setupThemeSwitcher();
     renderProducts();
     updateCartUI();
     lucide.createIcons();
@@ -354,12 +460,23 @@ function addToCart(productId) {
     cart.push(productId);
     saveCartToStorage();
     updateCartUI();
-    // showToast("Fragrância adicionada à sua coleção."); // Removido, pois vamos abrir o carrinho no lugar do toast
-    
+
     // Animação de Bump no Badge
     DOM.cartBadge.classList.remove('bump');
     void DOM.cartBadge.offsetWidth; // Trigger reflow
     DOM.cartBadge.classList.add('bump');
+
+    // Pulso visual no card do produto correspondente
+    const cardBtn = document.querySelector(`.btn-add-cart[data-id="${productId}"]`);
+    if (cardBtn) {
+        const card = cardBtn.closest('.product-card');
+        if (card) {
+            card.classList.remove('card-pulse');
+            void card.offsetWidth; // reflow para reiniciar animação
+            card.classList.add('card-pulse');
+            card.addEventListener('animationend', () => card.classList.remove('card-pulse'), { once: true });
+        }
+    }
 }
 
 // REQUISITO ACADÊMICO: Remoção com SPLICE (equivale ao conceito de Pop direcional)
@@ -440,12 +557,20 @@ function updateCartUI() {
     });
 
     const formattedTotal = formatPrice(totalPrice);
-    DOM.cartSubtotal.textContent = formattedTotal;
-    DOM.cartTotal.textContent = formattedTotal;
+    
+    // Animação do total em vez de troca seca (só faz se mudou)
+    if (totalPrice !== currentTotalValue) {
+        animateValue(DOM.cartSubtotal, currentTotalValue, totalPrice, 600);
+        animateValue(DOM.cartTotal, currentTotalValue, totalPrice, 600);
+    } else {
+        DOM.cartSubtotal.textContent = formattedTotal;
+        DOM.cartTotal.textContent = formattedTotal;
+    }
     
     // Atualizar UI de Checkout também
     updateCheckoutUI(uniqueItems, totalPrice);
     
+    currentTotalValue = totalPrice; // Atualiza o estado global
     lucide.createIcons();
 }
 
@@ -469,8 +594,17 @@ function updateCheckoutUI(uniqueItems, totalPrice) {
     });
 
     const formattedTotal = formatPrice(totalPrice);
-    DOM.checkoutSubtotal.textContent = formattedTotal;
-    DOM.checkoutTotalValue.textContent = formattedTotal;
+    
+    if (totalPrice !== currentTotalValue) {
+        animateValue(DOM.checkoutSubtotal, currentTotalValue, totalPrice, 600);
+        animateValue(DOM.checkoutTotalValue, currentTotalValue, totalPrice, 600);
+    } else {
+        DOM.checkoutSubtotal.textContent = formattedTotal;
+        DOM.checkoutTotalValue.textContent = formattedTotal;
+    }
+
+    // Atualiza simulador de parcelas no checkout
+    updateInstallments(totalPrice);
 }
 
 // ==========================================================================
@@ -479,20 +613,20 @@ function updateCheckoutUI(uniqueItems, totalPrice) {
 
 function openCart() {
     DOM.sidebar.classList.add('open');
-    DOM.overlay.classList.add('active');
-    document.body.classList.add('cart-open');
+    // Overlay e bloqueio de scroll removidos: carrinho é agora um side-panel não-obstrutivo
     DOM.sidebar.setAttribute('aria-hidden', 'false');
     
     // Trap focus ou focar no fechar
     setTimeout(() => DOM.closeCartBtn.focus(), 100);
+    startCuriosities();
 }
 
 function closeCart() {
     DOM.sidebar.classList.remove('open');
-    DOM.overlay.classList.remove('active');
-    document.body.classList.remove('cart-open');
+    // Overlay e desbloqueio de scroll removidos: side-panel não interfere na navegação
     DOM.sidebar.setAttribute('aria-hidden', 'true');
     DOM.cartBtn.focus(); // Retornar foco
+    clearInterval(curiosityInterval);
 }
 
 // REQUISITO TÉCNICO: Animação GSAP Carrinho -> Checkout sem recarregar página
@@ -591,6 +725,10 @@ function finalizePurchase() {
             // Esvaziar carrinho após a compra
             cart = [];
             saveCartToStorage();
+
+            const funnyText = getFunnyComparison(total);
+            const funnyEl = document.getElementById('funny-comparison');
+            if(funnyEl) funnyEl.textContent = funnyText;
         }
     });
 
@@ -746,8 +884,24 @@ function setupEventListeners() {
         const btnTrash = e.target.closest('.btn-remove-item');
 
         if (btnAdd) {
+            // Flash no número antes de atualizar
+            const qtyDisplay = btnAdd.closest('.cart-item-controls')?.querySelector('.qty-display');
+            if (qtyDisplay) {
+                qtyDisplay.classList.remove('qty-flash');
+                void qtyDisplay.offsetWidth;
+                qtyDisplay.classList.add('qty-flash');
+                qtyDisplay.addEventListener('animationend', () => qtyDisplay.classList.remove('qty-flash'), { once: true });
+            }
             addToCart(parseInt(btnAdd.dataset.id));
         } else if (btnRemoveQty) {
+            // Flash no número antes de atualizar
+            const qtyDisplay = btnRemoveQty.closest('.cart-item-controls')?.querySelector('.qty-display');
+            if (qtyDisplay) {
+                qtyDisplay.classList.remove('qty-flash');
+                void qtyDisplay.offsetWidth;
+                qtyDisplay.classList.add('qty-flash');
+                qtyDisplay.addEventListener('animationend', () => qtyDisplay.classList.remove('qty-flash'), { once: true });
+            }
             removeFromCart(parseInt(btnRemoveQty.dataset.id));
         } else if (btnTrash) {
             removeFromCart(parseInt(btnTrash.dataset.id), true);
@@ -765,33 +919,145 @@ function setupEventListeners() {
             option.classList.add('selected');
             const radio = option.querySelector('input[type="radio"]');
             radio.checked = true;
+
+            const method = option.dataset.method;
+            const pixDetails = document.getElementById('pix-details');
+            const cardDetails = document.getElementById('card-details');
+            
+            if(method === 'pix') {
+                pixDetails.classList.remove('hidden');
+                pixDetails.classList.add('active');
+                cardDetails.classList.add('hidden');
+                cardDetails.classList.remove('active');
+                startPixTimer();
+            } else {
+                cardDetails.classList.remove('hidden');
+                cardDetails.classList.add('active');
+                pixDetails.classList.add('hidden');
+                pixDetails.classList.remove('active');
+                clearInterval(pixInterval);
+            }
         });
     });
 
-    // Confirmação de Compra
+    // Iniciar timer do PIX ao abrir a página (pois é o default)
+    startPixTimer();
+
+    // Copiar código PIX
+    const btnCopyPix = document.getElementById('btn-copy-pix');
+    if(btnCopyPix) {
+        btnCopyPix.addEventListener('click', () => {
+            const input = document.getElementById('pix-copy-input');
+            input.select();
+            input.setSelectionRange(0, 99999); 
+            navigator.clipboard.writeText(input.value);
+            const originalHTML = btnCopyPix.innerHTML;
+            btnCopyPix.innerHTML = '<i data-lucide="check"></i> Copiado!';
+            lucide.createIcons();
+            setTimeout(() => {
+                btnCopyPix.innerHTML = originalHTML;
+                lucide.createIcons();
+            }, 2000);
+        });
+    }
+
+    // Interações Visuais do Cartão
+    const cardNumberInput = document.getElementById('card-number');
+    const visualCardNumber = document.getElementById('visual-card-number');
+    const visualCardFlag = document.getElementById('visual-card-flag');
+
+    if (cardNumberInput) {
+        cardNumberInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{4})/g, '$1 ').trim();
+            e.target.value = value;
+            visualCardNumber.textContent = value || '0000 0000 0000 0000';
+
+            if(value.startsWith('4')) {
+                visualCardFlag.className = 'card-flag visa';
+                visualCardFlag.textContent = 'VISA';
+            } else if(value.startsWith('5')) {
+                visualCardFlag.className = 'card-flag master';
+                visualCardFlag.textContent = 'MASTER';
+            } else {
+                visualCardFlag.className = 'card-flag';
+                visualCardFlag.textContent = '';
+            }
+        });
+    }
+
+    const cardNameInput = document.getElementById('card-name');
+    const visualCardName = document.getElementById('visual-card-name');
+    if (cardNameInput) {
+        cardNameInput.addEventListener('input', (e) => {
+            visualCardName.textContent = e.target.value.toUpperCase() || 'NOME IMPRESSO';
+        });
+    }
+
+    const cardExpiryInput = document.getElementById('card-expiry');
+    const visualCardExpiry = document.getElementById('visual-card-expiry');
+    if (cardExpiryInput) {
+        cardExpiryInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if(value.length > 2) {
+                value = value.substring(0,2) + '/' + value.substring(2,4);
+            }
+            e.target.value = value;
+            visualCardExpiry.textContent = value || 'MM/AA';
+        });
+    }
+
+    // Imprimir recibo
+    const printBtn = document.getElementById('print-receipt-btn');
+    if(printBtn) {
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+    }
+
+    // Confirmação de Compra — com barra de progresso
     DOM.confirmPurchaseBtn.addEventListener('click', () => {
         const btn = DOM.confirmPurchaseBtn;
-        const originalHtml = btn.innerHTML;
-        
-        // Simular processamento
-        btn.disabled = true;
-        btn.innerHTML = '<i data-lucide="loader-2" class="spin-icon"></i> <span>Processando...</span>';
-        lucide.createIcons();
-        
-        // CSS para a rotação
-        const style = document.createElement('style');
-        style.innerHTML = `
-            .spin-icon { animation: spin 1s linear infinite; }
-            @keyframes spin { 100% { transform: rotate(360deg); } }
-        `;
-        document.head.appendChild(style);
+        const progressWrap = document.getElementById('checkout-progress-wrap');
+        const progressBar  = document.getElementById('checkout-progress-bar');
+        const progressLabel = document.getElementById('checkout-progress-label');
 
-        setTimeout(() => {
-            btn.innerHTML = originalHtml;
-            btn.disabled = false;
-            document.head.removeChild(style);
-            finalizePurchase();
-        }, 1500);
+        // 1. Desabilita o botão e exibe a barra
+        btn.disabled = true;
+        btn.style.opacity = '0.4';
+        progressWrap.classList.remove('hidden');
+        progressBar.style.width = '0%';
+
+        // 2. Etapas de progresso com labels explicativos
+        const etapas = [
+            { pct: 18,  label: 'Validando carrinho...' },
+            { pct: 42,  label: 'Processando pagamento...' },
+            { pct: 68,  label: 'Confirmando com o banco...' },
+            { pct: 88,  label: 'Emitindo nota fiscal...' },
+            { pct: 100, label: 'Pedido confirmado!' },
+        ];
+
+        let step = 0;
+        const TOTAL_MS = 2500;
+        const interval = TOTAL_MS / etapas.length;
+
+        const ticker = setInterval(() => {
+            if (step >= etapas.length) {
+                clearInterval(ticker);
+                // Pequena pausa no 100% antes de finalizar
+                setTimeout(() => {
+                    progressWrap.classList.add('hidden');
+                    progressBar.style.width = '0%';
+                    btn.disabled = false;
+                    btn.style.opacity = '';
+                    finalizePurchase();
+                }, 400);
+                return;
+            }
+            progressBar.style.width = etapas[step].pct + '%';
+            progressLabel.textContent = etapas[step].label;
+            step++;
+        }, interval);
     });
 
     // Retorno para loja
@@ -809,5 +1075,25 @@ function setupEventListeners() {
     });
 }
 
-// Iniciar Aplicação
+// ==========================================================================
+// SELETOR DE TEMA
+// ==========================================================================
+
+function setupThemeSwitcher() {
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const themeLink = document.getElementById('theme-stylesheet');
+
+    themeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tema = btn.dataset.theme;
+            if (temas[tema]) {
+                themeLink.href = temas[tema];
+            }
+            themeBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+}
+
+
 document.addEventListener('DOMContentLoaded', init);
