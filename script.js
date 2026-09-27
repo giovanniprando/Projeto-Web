@@ -1,4 +1,4 @@
-
+﻿
 const temas = {
     escuro: 'style.css',
     claro: 'style-tema-claro.css',
@@ -102,13 +102,11 @@ const catalogo = [
 ];
 
 let cart = [];
-
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let currentCategory = 'todos';
 let currentSearch = '';
 let currentSort = 'default';
 let toastTimeout;
-
 let currentTotalValue = 0;
 let pixInterval;
 let curiosityInterval;
@@ -122,7 +120,6 @@ const curiosities = [
     "Alguns perfumes de nicho demoram meses para macerar antes de serem engarrafados.",
     "Na alta perfumaria, a íris é considerada uma das matérias-primas mais caras do mundo."
 ];
-
 
 function resetCartIdle() {
     clearTimeout(cartIdleTimeout);
@@ -141,31 +138,22 @@ document.addEventListener('mousemove', resetCartIdle);
 document.addEventListener('keydown', resetCartIdle);
 
 const DOM = {
-    // Header & Navegação
     header: document.getElementById('site-header'),
     mobileMenuBtn: document.getElementById('mobile-menu-btn'),
     mainNav: document.getElementById('main-nav'),
     navLinks: document.querySelectorAll('.nav-link'),
-    
-    // Busca & Ordenação
     searchToggleBtn: document.getElementById('search-toggle-btn'),
     searchCloseBtn: document.getElementById('search-close-btn'),
     searchPanel: document.getElementById('search-panel'),
     searchInput: document.getElementById('search-input'),
     sortSelect: document.getElementById('sort-select'),
-    
-    // Catálogo
     productGrid: document.getElementById('product-grid'),
     productCount: document.getElementById('product-count'),
     noResults: document.getElementById('no-results'),
     clearFiltersBtn: document.getElementById('clear-filters-btn'),
-    
-    // UI Elements
     toast: document.getElementById('toast-notification'),
     toastMessage: document.getElementById('toast-message'),
     overlay: document.getElementById('overlay'),
-    
-    // Elementos do Carrinho
     cartBtn: document.getElementById('cart-toggle-btn'),
     cartBadge: document.getElementById('cart-badge'),
     sidebar: document.getElementById('cart-sidebar'),
@@ -176,8 +164,6 @@ const DOM = {
     cartTotal: document.getElementById('cart-total-value'),
     goToCheckoutBtn: document.getElementById('go-to-checkout-btn'),
     continueShoppingBtn: document.getElementById('continue-shopping-btn'),
-    
-    // Checkout & Pagamento
     checkoutView: document.getElementById('checkout-view'),
     checkoutContent: document.getElementById('checkout-content'),
     cancelCheckoutBtn: document.getElementById('cancel-checkout-btn'),
@@ -186,17 +172,11 @@ const DOM = {
     checkoutTotalValue: document.getElementById('checkout-total-value'),
     confirmPurchaseBtn: document.getElementById('confirm-purchase-btn'),
     paymentOptions: document.querySelectorAll('.payment-option'),
-    
-    // Sucesso
     successMessage: document.getElementById('success-message'),
     successDetailsText: document.getElementById('success-details-text'),
     successTotalText: document.getElementById('success-total-text'),
     returnHomeBtn: document.getElementById('return-home-btn')
 };
-
-// ==========================================================================
-// FUNÇÕES AUXILIARES DE UX / ANIMAÇÕES
-// ==========================================================================
 
 function animateValue(element, start, end, duration) {
     if (!element) return;
@@ -204,7 +184,6 @@ function animateValue(element, start, end, duration) {
     const step = (timestamp) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        // ease out quad
         const easeProgress = progress * (2 - progress);
         const current = easeProgress * (end - start) + start;
         element.textContent = formatPrice(current);
@@ -302,21 +281,14 @@ function loadCartFromStorage() {
     }
 }
 
-// ==========================================================================
-// ANIMAÇÕES
-// ==========================================================================
-
 function initScrollAnimations() {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Hero Animations
     const heroTl = gsap.timeline();
     heroTl.to('.hero-tagline', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 })
           .to('.hero-title-line', { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: 'power3.out' }, "-=0.6")
           .to('.hero-description', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, "-=0.4")
           .to('.btn-hero', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, "-=0.4");
-
-    // Header Scroll State
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             DOM.header.classList.add('scrolled');
@@ -337,22 +309,16 @@ function showToast(message) {
     }, 3000);
 }
 
-// ==========================================================================
-// LÓGICA DE PRODUTOS & RENDERIZAÇÃO
-// ==========================================================================
-
 function formatPrice(value) {
     return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
 function getFilteredProducts() {
-    // 1. Filtrar Categoria (usando FILTER)
     let filtered = catalogo;
     if (currentCategory !== 'todos') {
         filtered = filtered.filter(p => p.category === currentCategory);
     }
 
-    // 2. Filtrar Busca Textual (usando FILTER)
     if (currentSearch.trim() !== '') {
         const query = currentSearch.toLowerCase();
         filtered = filtered.filter(p => 
@@ -362,9 +328,8 @@ function getFilteredProducts() {
         );
     }
 
-    // 3. Ordenação
     if (currentSort !== 'default') {
-        filtered = [...filtered]; // Clonar para não mutar original
+        filtered = [...filtered];
         switch (currentSort) {
             case 'price-asc':
                 filtered.sort((a, b) => a.price - b.price);
@@ -380,7 +345,6 @@ function getFilteredProducts() {
                 break;
         }
     }
-
     return filtered;
 }
 
@@ -399,14 +363,11 @@ function renderProducts() {
     DOM.productGrid.innerHTML = '';
 
     productsToRender.forEach((produto, index) => {
-        // Agora verificaremos os botões dinamicamente no clique e não manteremos fixos como "added" permanentemente,
-        // mas vamos colocar o texto normal. A animação verde ocorrerá apenas no momento do clique.
         const btnText = 'Adicionar ao Carrinho';
         const btnClass = 'btn-add-cart';
         
         const card = document.createElement('article');
         card.className = 'product-card';
-        // Delay escalonado para entrada (se não preferir reduced motion)
         const delay = prefersReducedMotion ? 0 : index * 100;
         
         card.innerHTML = `
@@ -429,8 +390,6 @@ function renderProducts() {
         `;
         
         DOM.productGrid.appendChild(card);
-        
-        // GSAP ScrollTrigger para revelar cards
         if (!prefersReducedMotion) {
             ScrollTrigger.create({
                 trigger: card,
@@ -446,41 +405,29 @@ function renderProducts() {
     lucide.createIcons();
 }
 
-// ==========================================================================
-// LÓGICA DO CARRINHO (MÉTODOS ARRAY OBRIGATÓRIOS)
-// ==========================================================================
-
-// REQUISITO ACADÊMICO: Uso de PUSH
 function addToCart(productId) {
     cart.push(productId);
     saveCartToStorage();
     updateCartUI();
-
-    // Animação de Bump no Badge
     DOM.cartBadge.classList.remove('bump');
-    void DOM.cartBadge.offsetWidth; // Trigger reflow
+    void DOM.cartBadge.offsetWidth;
     DOM.cartBadge.classList.add('bump');
-
-    // Pulso visual no card do produto correspondente
     const cardBtn = document.querySelector(`.btn-add-cart[data-id="${productId}"]`);
     if (cardBtn) {
         const card = cardBtn.closest('.product-card');
         if (card) {
             card.classList.remove('card-pulse');
-            void card.offsetWidth; // reflow para reiniciar animação
+            void card.offsetWidth;
             card.classList.add('card-pulse');
             card.addEventListener('animationend', () => card.classList.remove('card-pulse'), { once: true });
         }
     }
 }
 
-// REQUISITO ACADÊMICO: Remoção com SPLICE (equivale ao conceito de Pop direcional)
 function removeFromCart(productId, removeAll = false) {
     if (removeAll) {
-        // Usa FILTER para remover todas as instâncias (Requisito acadêmico)
         cart = cart.filter(id => id !== productId);
     } else {
-        // Encontra o último índice e remove uma unidade (como um pop específico)
         const lastIndex = cart.lastIndexOf(productId);
         if (lastIndex !== -1) {
             cart.splice(lastIndex, 1);
@@ -491,7 +438,6 @@ function removeFromCart(productId, removeAll = false) {
 }
 
 function updateCartUI() {
-    // 1. Atualizar Badge
     DOM.cartBadge.textContent = cart.length;
 
     if (cart.length === 0) {
@@ -506,35 +452,23 @@ function updateCartUI() {
         DOM.cartTotal.textContent = 'R$ 0,00';
         DOM.goToCheckoutBtn.disabled = true;
         lucide.createIcons();
-        
-        // Listener para botão de fechar quando vazio
         document.getElementById('empty-cart-close-btn')?.addEventListener('click', closeCart);
         return;
     }
 
     DOM.goToCheckoutBtn.disabled = false;
     DOM.cartItemsContainer.innerHTML = '';
-
-    // REQUISITO ACADÊMICO: Uso de FILTER (para criar itens únicos)
-    // Filtramos o catálogo mantendo apenas itens que existem no carrinho (ids presentes)
     const uniqueItems = catalogo.filter(produto => cart.includes(produto.id));
-
-    // REQUISITO ACADÊMICO: Uso de REDUCE (Cálculo do Total)
     const totalPrice = cart.reduce((total, currentId) => {
         const item = catalogo.find(p => p.id === currentId);
         return total + (item ? item.price : 0);
     }, 0);
-
     const totalOriginalPrice = cart.reduce((total, currentId) => {
         const item = catalogo.find(p => p.id === currentId);
         return total + (item ? (item.originalPrice || item.price) : 0);
     }, 0);
-
     const savings = totalOriginalPrice - totalPrice;
-
-    // Renderizar Itens Únicos
     uniqueItems.forEach(produto => {
-        // REQUISITO ACADÊMICO: Uso de FILTER (contar quantidade)
         const quantity = cart.filter(id => id === produto.id).length;
         
         let priceHTML = `<div class="cart-item-price">${formatPrice(produto.price)}</div>`;
@@ -569,8 +503,6 @@ function updateCartUI() {
     });
 
     const formattedTotal = formatPrice(totalPrice);
-    
-    // Atualiza a linha de economia
     const savingsRow = document.getElementById('cart-savings-row');
     const savingsValue = document.getElementById('cart-savings-value');
     if (savingsRow && savingsValue) {
@@ -581,8 +513,6 @@ function updateCartUI() {
             savingsRow.classList.add('hidden');
         }
     }
-    
-    // Animação do total em vez de troca seca (só faz se mudou)
     if (totalPrice !== currentTotalValue) {
         animateValue(DOM.cartSubtotal, currentTotalValue, totalPrice, 600);
         animateValue(DOM.cartTotal, currentTotalValue, totalPrice, 600);
@@ -590,14 +520,11 @@ function updateCartUI() {
         DOM.cartSubtotal.textContent = formattedTotal;
         DOM.cartTotal.textContent = formattedTotal;
     }
-    
-    // Atualizar UI de Checkout também
     updateCheckoutUI(uniqueItems, totalPrice);
     
-    currentTotalValue = totalPrice; // Atualiza o estado global
+    currentTotalValue = totalPrice;
     lucide.createIcons();
-    
-    // Animação GSAP Stagger
+
     gsap.fromTo('.cart-item-card', 
         { y: 20, opacity: 0 }, 
         { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: "power2.out" }
@@ -606,7 +533,6 @@ function updateCartUI() {
 
 function updateCheckoutUI(uniqueItems, totalPrice) {
     DOM.checkoutSummaryList.innerHTML = '';
-    
     uniqueItems.forEach(produto => {
         const quantity = cart.filter(id => id === produto.id).length;
         const itemLine = document.createElement('div');
@@ -632,38 +558,23 @@ function updateCheckoutUI(uniqueItems, totalPrice) {
         DOM.checkoutSubtotal.textContent = formattedTotal;
         DOM.checkoutTotalValue.textContent = formattedTotal;
     }
-
-    // Atualiza simulador de parcelas no checkout
     updateInstallments(totalPrice);
 }
-
-// ==========================================================================
-// CONTROLES DE INTERFACE (MODAIS, CARRINHO E TRANSIÇÕES)
-// ==========================================================================
-
 function openCart() {
     DOM.sidebar.classList.add('open');
-    // Overlay e bloqueio de scroll removidos: carrinho é agora um side-panel não-obstrutivo
     DOM.sidebar.setAttribute('aria-hidden', 'false');
-    
-    // Trap focus ou focar no fechar
     setTimeout(() => DOM.closeCartBtn.focus(), 100);
     startCuriosities();
 }
 
 function closeCart() {
     DOM.sidebar.classList.remove('open');
-    // Overlay e desbloqueio de scroll removidos: side-panel não interfere na navegação
     DOM.sidebar.setAttribute('aria-hidden', 'true');
-    DOM.cartBtn.focus(); // Retornar foco
+    DOM.cartBtn.focus();
     clearInterval(curiosityInterval);
 }
-
-// REQUISITO TÉCNICO: Animação GSAP Carrinho -> Checkout sem recarregar página
 function transitionToCheckout() {
     const tl = gsap.timeline();
-    
-    // 1. Esconder view do carrinho
     tl.to(DOM.cartView, {
         opacity: 0,
         x: -20,
@@ -675,15 +586,12 @@ function transitionToCheckout() {
             DOM.sidebar.classList.add('fullscreen');
         }
     });
-
-    // 2. Expandir container lateral para tela cheia
     tl.to(DOM.sidebar, {
         width: '100vw',
         duration: 0.6,
         ease: 'power3.inOut'
     }, "-=0.1");
 
-    // 3. Revelar conteúdo do Checkout com Stagger
     tl.fromTo(DOM.checkoutContent, 
         { opacity: 0 }, 
         { opacity: 1, duration: 0.4 }
@@ -697,8 +605,6 @@ function transitionToCheckout() {
 
 function reverterCheckout() {
     const tl = gsap.timeline();
-
-    // 1. Esconder checkout
     tl.to(DOM.checkoutView, {
         opacity: 0,
         duration: 0.3,
@@ -709,26 +615,19 @@ function reverterCheckout() {
             DOM.cartView.classList.remove('hidden');
         }
     });
-
-    // 2. Retrair largura
     tl.to(DOM.sidebar, {
         width: 'var(--cart-width)',
         duration: 0.5,
         ease: 'power3.inOut'
     });
-
-    // 3. Mostrar carrinho
     tl.fromTo(DOM.cartView,
         { opacity: 0, x: 20 },
         { opacity: 1, x: 0, duration: 0.3 }
     );
 }
 
-// REQUISITO TÉCNICO: Finalizar compra sem location.reload()
 function finalizePurchase() {
     const tl = gsap.timeline();
-
-    // 1. Fade out no conteúdo do checkout
     tl.to(DOM.checkoutContent, {
         opacity: 0,
         scale: 0.98,
@@ -737,39 +636,29 @@ function finalizePurchase() {
             DOM.checkoutContent.classList.add('hidden');
             DOM.successMessage.classList.remove('hidden');
             DOM.successMessage.setAttribute('aria-hidden', 'false');
-            
-            // REQUISITO ACADÊMICO: Uso de JOIN (Criar string de nomes)
             const boughtItems = catalogo.filter(produto => cart.includes(produto.id));
             const itemNames = boughtItems.map(p => {
                 const qty = cart.filter(id => id === p.id).length;
                 return `${p.name} (x${qty})`;
             });
             DOM.successDetailsText.textContent = itemNames.join(' • ');
-            
             const total = cart.reduce((acc, curr) => {
                 const item = catalogo.find(p => p.id === curr);
                 return acc + (item ? item.price : 0);
             }, 0);
             DOM.successTotalText.textContent = `Total Pago: ${formatPrice(total)}`;
-            
-            // Esvaziar carrinho após a compra
             cart = [];
             saveCartToStorage();
-
             const funnyText = getFunnyComparison(total);
             const funnyEl = document.getElementById('funny-comparison');
             if(funnyEl) funnyEl.textContent = funnyText;
         }
     });
-
-    // 2. Fade in na tela de sucesso
     tl.fromTo(DOM.successMessage,
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.6, delay: 0.1 }
     );
 }
-
-// Retornar à loja da tela de sucesso sem dar reload
 function retornarALoja() {
     DOM.successMessage.classList.add('hidden');
     DOM.successMessage.setAttribute('aria-hidden', 'true');
@@ -777,42 +666,30 @@ function retornarALoja() {
     DOM.checkoutView.classList.add('hidden');
     DOM.cartView.classList.remove('hidden');
     DOM.sidebar.classList.remove('fullscreen');
-    DOM.sidebar.style.width = ''; // Reseta para css
+    DOM.sidebar.style.width = '';
     closeCart();
-    
-    // Reseta visibilidade da view para próximas vezes
     gsap.set(DOM.cartView, { opacity: 1, x: 0 });
     gsap.set(DOM.checkoutContent, { opacity: 1, scale: 1 });
     
     updateCartUI();
 }
 
-// ==========================================================================
-// EVENT LISTENERS DELEGATION
-// ==========================================================================
-
 function setupEventListeners() {
-    // Filtros de Categoria
     DOM.navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             DOM.navLinks.forEach(l => l.classList.remove('active'));
             e.currentTarget.classList.add('active');
-            
             currentCategory = e.currentTarget.dataset.category;
             renderProducts();
-            
             if (window.innerWidth <= 768) {
                 toggleMobileMenu(false);
             }
         });
     });
-
-    // Mobile Menu
     DOM.mobileMenuBtn.addEventListener('click', () => {
         const isExpanded = DOM.mobileMenuBtn.getAttribute('aria-expanded') === 'true';
         toggleMobileMenu(!isExpanded);
     });
-
     function toggleMobileMenu(forceState) {
         if (forceState) {
             DOM.mainNav.classList.add('open');
@@ -825,7 +702,6 @@ function setupEventListeners() {
         }
     }
 
-    // Busca (Busca e UI)
     DOM.searchToggleBtn.addEventListener('click', () => {
         DOM.searchPanel.classList.add('open');
         DOM.searchToggleBtn.setAttribute('aria-expanded', 'true');
@@ -842,7 +718,6 @@ function setupEventListeners() {
         }
     });
 
-    // Debounce manual simples para busca
     let searchTimeout;
     DOM.searchInput.addEventListener('input', (e) => {
         clearTimeout(searchTimeout);
@@ -852,13 +727,11 @@ function setupEventListeners() {
         }, 300);
     });
 
-    // Ordenação
     DOM.sortSelect.addEventListener('change', (e) => {
         currentSort = e.target.value;
         renderProducts();
     });
 
-    // Limpar filtros do state de "No Results"
     DOM.clearFiltersBtn.addEventListener('click', () => {
         currentSearch = '';
         DOM.searchInput.value = '';
@@ -868,7 +741,6 @@ function setupEventListeners() {
         renderProducts();
     });
 
-    // Abertura/Fechamento do Carrinho
     DOM.cartBtn.addEventListener('click', openCart);
     DOM.closeCartBtn.addEventListener('click', closeCart);
     DOM.continueShoppingBtn.addEventListener('click', closeCart);
@@ -878,22 +750,15 @@ function setupEventListeners() {
         }
     });
 
-    // Delegação de Eventos para interações dentro do Grid (Adicionar)
     DOM.productGrid.addEventListener('click', (e) => {
         const addBtn = e.target.closest('.btn-add-cart');
         if (addBtn && !addBtn.classList.contains('added') && !addBtn.disabled) {
             const id = parseInt(addBtn.dataset.id);
-            
-            // Proteção contra duplo clique (Debounce disable)
             addBtn.disabled = true;
-            
-            // 1. Feedback visual no botão (Fica verde)
             addBtn.classList.add('added');
             const span = addBtn.querySelector('span');
             span.innerHTML = '<i data-lucide="check" style="width: 14px; height: 14px; margin-right: 4px; display: inline-block; vertical-align: middle;"></i>Adicionado';
             lucide.createIcons();
-            
-            // ANIMAÇÃO VOANDO PRO CARRINHO
             const card = addBtn.closest('.product-card');
             const img = card.querySelector('img');
             const cartIcon = document.getElementById('cart-toggle-btn');
@@ -902,7 +767,6 @@ function setupEventListeners() {
                 const clone = img.cloneNode();
                 const imgRect = img.getBoundingClientRect();
                 const cartRect = cartIcon.getBoundingClientRect();
-                
                 clone.style.position = 'fixed';
                 clone.style.left = imgRect.left + 'px';
                 clone.style.top = imgRect.top + 'px';
@@ -913,7 +777,6 @@ function setupEventListeners() {
                 clone.style.opacity = '0.8';
                 clone.style.pointerEvents = 'none';
                 document.body.appendChild(clone);
-                
                 gsap.to(clone, {
                     x: cartRect.left - imgRect.left,
                     y: cartRect.top - imgRect.top,
@@ -923,9 +786,7 @@ function setupEventListeners() {
                     ease: "power2.inOut",
                     onComplete: () => {
                         clone.remove();
-                        // 2. Adiciona ao carrinho internamente após voar
                         addToCart(id);
-                        // Abre carrinho
                         openCart();
                     }
                 });
@@ -934,7 +795,6 @@ function setupEventListeners() {
                 setTimeout(() => openCart(), 300);
             }
 
-            // 4. Reverte o botão e reativa-o após 1.5s
             setTimeout(() => {
                 addBtn.disabled = false;
                 addBtn.classList.remove('added');
@@ -944,14 +804,12 @@ function setupEventListeners() {
         }
     });
 
-    // Delegação de Eventos para interações dentro do Carrinho (Sidebar)
     DOM.cartItemsContainer.addEventListener('click', (e) => {
         const btnAdd = e.target.closest('.add-qty');
         const btnRemoveQty = e.target.closest('.remove-qty');
         const btnTrash = e.target.closest('.btn-remove-item');
 
         if (btnAdd) {
-            // Flash no número antes de atualizar
             const qtyDisplay = btnAdd.closest('.cart-item-controls')?.querySelector('.qty-display');
             if (qtyDisplay) {
                 qtyDisplay.classList.remove('qty-flash');
@@ -961,7 +819,6 @@ function setupEventListeners() {
             }
             addToCart(parseInt(btnAdd.dataset.id));
         } else if (btnRemoveQty) {
-            // Flash no número antes de atualizar
             const qtyDisplay = btnRemoveQty.closest('.cart-item-controls')?.querySelector('.qty-display');
             if (qtyDisplay) {
                 qtyDisplay.classList.remove('qty-flash');
@@ -975,22 +832,17 @@ function setupEventListeners() {
         }
     });
 
-    // Checkout Navigation
     DOM.goToCheckoutBtn.addEventListener('click', transitionToCheckout);
     DOM.cancelCheckoutBtn.addEventListener('click', reverterCheckout);
-    
-    // Seleção de Pagamento
     DOM.paymentOptions.forEach(option => {
         option.addEventListener('click', () => {
             DOM.paymentOptions.forEach(opt => opt.classList.remove('selected'));
             option.classList.add('selected');
             const radio = option.querySelector('input[type="radio"]');
             radio.checked = true;
-
             const method = option.dataset.method;
             const pixDetails = document.getElementById('pix-details');
             const cardDetails = document.getElementById('card-details');
-            
             if(method === 'pix') {
                 pixDetails.classList.remove('hidden');
                 pixDetails.classList.add('active');
@@ -1006,11 +858,7 @@ function setupEventListeners() {
             }
         });
     });
-
-    // Iniciar timer do PIX ao abrir a página (pois é o default)
     startPixTimer();
-
-    // Copiar código PIX
     const btnCopyPix = document.getElementById('btn-copy-pix');
     if(btnCopyPix) {
         btnCopyPix.addEventListener('click', () => {
@@ -1028,7 +876,6 @@ function setupEventListeners() {
         });
     }
 
-    // Interações Visuais do Cartão
     const cardNumberInput = document.getElementById('card-number');
     const visualCardNumber = document.getElementById('visual-card-number');
     const visualCardFlag = document.getElementById('visual-card-flag');
@@ -1074,7 +921,6 @@ function setupEventListeners() {
         });
     }
 
-    // Imprimir recibo
     const printBtn = document.getElementById('print-receipt-btn');
     if(printBtn) {
         printBtn.addEventListener('click', () => {
@@ -1082,7 +928,6 @@ function setupEventListeners() {
         });
     }
 
-    // Esvaziar carrinho
     const clearCartBtn = document.getElementById('clear-cart-btn');
     if (clearCartBtn) {
         clearCartBtn.addEventListener('click', () => {
@@ -1097,15 +942,13 @@ function setupEventListeners() {
         });
     }
 
-    // Aviso antes de sair da página
     window.addEventListener('beforeunload', (e) => {
         if (cart.length > 0) {
             e.preventDefault();
-            e.returnValue = ''; // Exigido por alguns navegadores
+            e.returnValue = '';
         }
     });
 
-    // Saudação de horário no top greeting
     const greetingEl = document.getElementById('top-greeting');
     if (greetingEl) {
         const hour = new Date().getHours();
@@ -1118,20 +961,17 @@ function setupEventListeners() {
         }
     }
 
-    // Confirmação de Compra — com barra de progresso
     DOM.confirmPurchaseBtn.addEventListener('click', () => {
         const btn = DOM.confirmPurchaseBtn;
         const progressWrap = document.getElementById('checkout-progress-wrap');
         const progressBar  = document.getElementById('checkout-progress-bar');
         const progressLabel = document.getElementById('checkout-progress-label');
 
-        // 1. Desabilita o botão e exibe a barra
         btn.disabled = true;
         btn.style.opacity = '0.4';
         progressWrap.classList.remove('hidden');
         progressBar.style.width = '0%';
 
-        // 2. Etapas de progresso com labels explicativos
         const etapas = [
             { pct: 18,  label: 'Validando carrinho...' },
             { pct: 42,  label: 'Processando pagamento...' },
@@ -1147,7 +987,6 @@ function setupEventListeners() {
         const ticker = setInterval(() => {
             if (step >= etapas.length) {
                 clearInterval(ticker);
-                // Pequena pausa no 100% antes de finalizar
                 setTimeout(() => {
                     progressWrap.classList.add('hidden');
                     progressBar.style.width = '0%';
@@ -1163,10 +1002,7 @@ function setupEventListeners() {
         }, interval);
     });
 
-    // Retorno para loja
     DOM.returnHomeBtn.addEventListener('click', retornarALoja);
-
-    // Escape Key Handler
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             if (DOM.searchPanel.classList.contains('open')) {
@@ -1177,10 +1013,6 @@ function setupEventListeners() {
         }
     });
 }
-
-// ==========================================================================
-// SELETOR DE TEMA
-// ==========================================================================
 
 function setupThemeSwitcher() {
     const themeBtns = document.querySelectorAll('.theme-btn');
