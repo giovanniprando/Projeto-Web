@@ -11,6 +11,7 @@ const catalogo = [
         brand: "Maison Francis Kurkdjian",
         name: "Baccarat Rouge 540",
         category: "Unissex",
+
         olfactoryFamily: "Floral Amadeirado",
         notes: "Jasmim, Açafrão, Cedro, Âmbar Gris",
         price: 2450.00,
@@ -27,6 +28,7 @@ const catalogo = [
         price: 3100.00,
         originalPrice: 3500.00,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUlGgFXnQvDB2vG5CzwtQiU0Hmp6mQCyB3CAHQa8fALQ&s"
+
     },
     {
         id: 3,
@@ -38,6 +40,7 @@ const catalogo = [
         price: 2150.00,
         originalPrice: 2400.00,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT10utiFaKKhd_zHlavJE2UE68TYfgWjaj6UdYj4rGjuQ&s=10"
+
     },
     {
         id: 4,
@@ -48,6 +51,7 @@ const catalogo = [
         notes: "Sândalo, Cedro, Cardamomo, Violeta",
         price: 1890.00,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQMY3dif608Mrzt1BWEWKUTd97UqdL6__zdipd2jJN5Q&s=10"
+
     },
     {
         id: 5,
@@ -58,6 +62,7 @@ const catalogo = [
         notes: "Toranja, Vetiver, Âmbar Gris, Groselha Preta",
         price: 4200.00,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIpGSd7z_xqVnBjVjUNm9eqmknIxpg_EwsVg3bOV2kUw&s=10"
+
     },
     {
         id: 6,
@@ -68,6 +73,7 @@ const catalogo = [
         notes: "Néroli, Flor de Laranjeira, Marshmallow, Baunilha",
         price: 2350.00,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6t76gpSxReAx3HtVLhOvAuY_1PwQxHmZvEGls4XonVg&s=10"
+
     },
     {
         id: 7,
@@ -78,6 +84,7 @@ const catalogo = [
         notes: "Maçã, Lavanda, Baunilha, Pimenta Rosa",
         price: 2100.00,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSql81fhNuAdi1T4Q_cblLqFIJVSFe-MD9LoQofmUy8VA&s=10"
+
     },
     {
         id: 8,
@@ -88,6 +95,7 @@ const catalogo = [
         notes: "Orégano, Incenso, Opoponax, Couro",
         price: 2850.00,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnaarX5NLP4O7KYAzJu6gz3jpfHqkYMod8BU_UpSgJxg&s=10"
+
     },
     {
         id: 9,
@@ -123,7 +131,6 @@ const curiosities = [
     "Na alta perfumaria, a íris é considerada uma das matérias-primas mais caras do mundo."
 ];
 
-
 function resetCartIdle() {
     clearTimeout(cartIdleTimeout);
     const btn = document.getElementById('go-to-checkout-btn');
@@ -134,7 +141,7 @@ function resetCartIdle() {
             if (btnCheckout && !btnCheckout.disabled) {
                 btnCheckout.classList.add('pulse-btn');
             }
-        }, 8000);
+        }, 8000)
     }
 }
 document.addEventListener('mousemove', resetCartIdle);
@@ -276,6 +283,13 @@ function updateInstallments(total) {
     }
 }
 
+<<<<<<< HEAD
+=======
+// ==========================================================================
+// INICIALIZAÇÃO E PERSISTÊNCIA (LOCALSTORAGE)
+// ==========================================================================
+
+>>>>>>> db11f77ce064fb2d421cdfa159d51a65cec3ee21
 function init() {
     loadCartFromStorage();
     setupEventListeners();
