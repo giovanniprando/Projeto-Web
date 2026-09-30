@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>L'Or Doré | Perfumaria de Nicho & Alta Perfumaria</title>
+    <title>L'Or Doré</title>
     <meta
       name="description"
       content="L'Or Doré — Boutique digital de perfumaria de nicho. Fragrâncias exclusivas de Maison Francis Kurkdjian, Creed, Le Labo, Tom Ford e mais. Alta perfumaria com curadoria premium."
@@ -14,44 +14,32 @@
       href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>"
     />
 
-    <!-- Preconnect para Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.unsplash.com" />
 
-    <!-- Tipografia Editorial -->
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Estilos Globais -->
     <link rel="stylesheet" href="style-tema-claro.css" id="theme-stylesheet" />
 
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- GSAP + ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   </head>
   <body>
-    <!-- Skip to content (Acessibilidade) -->
     <a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
-
-    <!-- Saudação Dinâmica -->
     <div id="top-greeting" class="top-greeting"></div>
-
-    <!-- Overlay de Fundo com Desfoque -->
     <div id="overlay" class="overlay" aria-hidden="true"></div>
 
-    <!-- Toast Notification -->
     <div id="toast-notification" class="toast" role="status" aria-live="polite">
       <i data-lucide="check-circle" class="toast-icon"></i>
       <span id="toast-message">Fragrância adicionada à sua coleção.</span>
     </div>
 
-    <!-- Cabeçalho Principal -->
     <header class="site-header" id="site-header">
       <div class="header-container">
         <button
@@ -75,7 +63,7 @@
           <ul>
             <li>
               <button class="nav-link active" data-category="todos">
-                Coleção Completa
+                Coleção
               </button>
             </li>
             <li>
@@ -90,14 +78,13 @@
             </li>
             <li>
               <button class="nav-link" data-category="Compartilhável">
-                Compartilhável
+                Unissex
               </button>
             </li>
           </ul>
         </nav>
 
         <div class="header-actions">
-          <!-- Busca -->
           <div class="search-wrapper" id="search-wrapper">
             <button
               class="search-toggle-btn"
@@ -126,7 +113,6 @@
             </div>
           </div>
 
-          <!-- Ordenação -->
           <div class="sort-wrapper">
             <select
               id="sort-select"
@@ -141,7 +127,6 @@
             </select>
           </div>
 
-          <!-- Seletor de Tema -->
           <div
             class="theme-switcher"
             role="group"
@@ -170,7 +155,6 @@
             </button>
           </div>
 
-          <!-- Carrinho -->
           <button
             id="cart-toggle-btn"
             class="cart-trigger-btn"
@@ -185,9 +169,7 @@
       </div>
     </header>
 
-    <!-- Conteúdo Principal -->
     <main id="main-content">
-      <!-- Hero Section -->
       <section class="hero-section" aria-label="Banner principal">
         <div class="hero-bg-overlay"></div>
         <div class="hero-visual">
@@ -217,7 +199,6 @@
         </div>
       </section>
 
-      <!-- Seção do Catálogo -->
       <section id="catalog-section" class="catalog-section">
         <header class="section-header">
           <span class="section-badge">Exclusividade L'Or Doré</span>
@@ -225,22 +206,17 @@
           <div class="gold-separator"></div>
         </header>
 
-        <!-- Contagem de resultados -->
         <div class="catalog-meta" aria-live="polite">
           <span id="product-count" class="product-count"></span>
         </div>
 
-        <!-- Grid de Produtos -->
         <div
           id="product-grid"
           class="product-grid"
           role="region"
           aria-label="Catálogo de Perfumes"
-        >
-          <!-- Injetado dinamicamente via JS -->
-        </div>
+        ></div>
 
-        <!-- Estado: sem resultados -->
         <div id="no-results" class="no-results hidden" role="status">
           <i data-lucide="search-x"></i>
           <p>Nenhuma fragrância encontrada.</p>
@@ -251,7 +227,6 @@
       </section>
     </main>
 
-    <!-- Rodapé -->
     <footer class="site-footer">
       <div class="footer-container">
         <div class="footer-brand">
@@ -273,13 +248,12 @@
             E-Commerce Premium.
           </p>
           <p class="footer-note">
-            Dados demonstrativos para fins acadêmicos. Preços aproximados.
+            Estilos CSS gerados via Inteligência Artificial (Gemini / Claude).
           </p>
         </div>
       </div>
     </footer>
 
-    <!-- CARRINHO LATERAL / PAINEL DE CHECKOUT EM TELA CHEIA -->
     <aside
       id="cart-sidebar"
       class="cart-drawer"
@@ -287,7 +261,6 @@
       aria-modal="true"
       aria-label="Carrinho de Compras"
     >
-      <!-- VISÃO 1: Carrinho Lateral -->
       <div id="cart-view" class="drawer-view cart-view">
         <header class="drawer-header">
           <div class="drawer-title-group">
@@ -303,13 +276,17 @@
           </button>
         </header>
 
-        <div id="cart-items-container" class="drawer-body cart-items-list">
-          <!-- Itens injetados dinamicamente -->
-        </div>
+        <div
+          id="cart-items-container"
+          class="drawer-body cart-items-list"
+        ></div>
 
         <div id="cart-curiosity-container" class="cart-curiosity-container">
           <i data-lucide="sparkles" class="curiosity-icon"></i>
-          <span id="cart-curiosity-text">Você sabia? O âmbar gris é um ingrediente raríssimo usado na alta perfumaria.</span>
+          <span id="cart-curiosity-text"
+            >Você sabia? O âmbar gris é um ingrediente raríssimo usado na alta
+            perfumaria.</span
+          >
         </div>
 
         <footer class="drawer-footer">
@@ -317,24 +294,43 @@
             <span class="summary-label">Subtotal</span>
             <span id="cart-subtotal-value" class="summary-value">R$ 0,00</span>
           </div>
-          <div class="price-summary-row hidden" id="cart-savings-row" style="color: var(--color-success);">
+          <div
+            class="price-summary-row hidden"
+            id="cart-savings-row"
+            style="color: var(--color-success)"
+          >
             <span class="summary-label">Você está economizando</span>
             <span id="cart-savings-value" class="summary-value">- R$ 0,00</span>
           </div>
           <div class="price-summary-row">
             <span class="summary-label">Frete (Entrega Especial)</span>
-            <span class="summary-value" style="color: var(--color-success);">Grátis</span>
+            <span class="summary-value" style="color: var(--color-success)"
+              >Grátis</span
+            >
           </div>
           <div class="price-summary-row total-row">
             <span class="summary-label">Total Estimado</span>
-            <span id="cart-total-value" class="summary-value gold-text">R$ 0,00</span>
+            <span id="cart-total-value" class="summary-value gold-text"
+              >R$ 0,00</span
+            >
           </div>
 
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
-            <button id="clear-cart-btn" class="btn-secondary-outline" style="padding: 0 1rem;" aria-label="Esvaziar Carrinho" title="Esvaziar Carrinho">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem">
+            <button
+              id="clear-cart-btn"
+              class="btn-secondary-outline"
+              style="padding: 0 1rem"
+              aria-label="Esvaziar Carrinho"
+              title="Esvaziar Carrinho"
+            >
               <i data-lucide="trash-2"></i>
             </button>
-            <button id="go-to-checkout-btn" class="btn-primary-gold" style="flex: 1;" disabled>
+            <button
+              id="go-to-checkout-btn"
+              class="btn-primary-gold"
+              style="flex: 1"
+              disabled
+            >
               <span>Ir ao Pagamento</span>
               <i data-lucide="arrow-right"></i>
             </button>
@@ -344,15 +340,12 @@
           </button>
         </footer>
       </div>
-
-      <!-- VISÃO 2: Checkout em Tela Cheia (Expandido via JS/GSAP) -->
       <div
         id="checkout-view"
         class="drawer-view checkout-view hidden"
         aria-hidden="true"
       >
         <div class="checkout-wrapper">
-          <!-- Conteúdo do Checkout -->
           <div id="checkout-content" class="checkout-content">
             <header class="checkout-header">
               <button
@@ -377,9 +370,10 @@
                 <h3 class="card-subtitle">
                   <i data-lucide="package"></i> Fragrâncias Selecionadas
                 </h3>
-                <div id="checkout-summary-list" class="checkout-summary-list">
-                  <!-- Resumo Reorganizado Dinamicamente -->
-                </div>
+                <div
+                  id="checkout-summary-list"
+                  class="checkout-summary-list"
+                ></div>
               </div>
 
               <div class="checkout-payment-card">
@@ -404,7 +398,6 @@
                   </div>
                 </div>
 
-                <!-- Método de pagamento demonstrativo -->
                 <div class="payment-method-demo">
                   <h4 class="payment-method-title">
                     <i data-lucide="wallet"></i>
@@ -432,64 +425,105 @@
                       </span>
                     </label>
                   </div>
-
-                  <!-- Detalhes do Pagamento -->
                   <div class="payment-details">
-                    <!-- PIX -->
                     <div id="pix-details" class="payment-detail-section active">
                       <div class="pix-qrcode-box">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=LOrDorePixMock" alt="QR Code PIX">
+                        <img
+                          src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=LOrDorePixMock"
+                          alt="QR Code PIX"
+                        />
                       </div>
                       <div class="pix-code-box">
-                        <input type="text" id="pix-copy-input" value="00020126580014br.gov.bcb.pix0136fake-pix-code-lordore" readonly>
-                        <button id="btn-copy-pix" class="btn-secondary-outline btn-small" type="button"><i data-lucide="copy"></i> Copiar</button>
+                        <input
+                          type="text"
+                          id="pix-copy-input"
+                          value="00020126580014br.gov.bcb.pix0136fake-pix-code-lordore"
+                          readonly
+                        />
+                        <button
+                          id="btn-copy-pix"
+                          class="btn-secondary-outline btn-small"
+                          type="button"
+                        >
+                          <i data-lucide="copy"></i> Copiar
+                        </button>
                       </div>
                       <div class="pix-timer">
-                        <i data-lucide="clock"></i> Expira em <span id="pix-countdown">10:00</span>
+                        <i data-lucide="clock"></i> Expira em
+                        <span id="pix-countdown">10:00</span>
                       </div>
                     </div>
-
-                    <!-- Cartão -->
-                    <div id="card-details" class="payment-detail-section hidden">
+                    <div
+                      id="card-details"
+                      class="payment-detail-section hidden"
+                    >
                       <div class="visual-card">
                         <div class="visual-card-chip"></div>
                         <div id="visual-card-flag" class="card-flag"></div>
-                        <div id="visual-card-number" class="visual-card-number">0000 0000 0000 0000</div>
+                        <div id="visual-card-number" class="visual-card-number">
+                          0000 0000 0000 0000
+                        </div>
                         <div class="visual-card-bottom">
-                          <div id="visual-card-name" class="visual-card-name">NOME IMPRESSO</div>
-                          <div id="visual-card-expiry" class="visual-card-expiry">MM/AA</div>
+                          <div id="visual-card-name" class="visual-card-name">
+                            NOME IMPRESSO
+                          </div>
+                          <div
+                            id="visual-card-expiry"
+                            class="visual-card-expiry"
+                          >
+                            MM/AA
+                          </div>
                         </div>
                       </div>
                       <div class="card-form">
                         <div class="form-group">
                           <label>Número do Cartão</label>
-                          <input type="text" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19">
+                          <input
+                            type="text"
+                            id="card-number"
+                            placeholder="0000 0000 0000 0000"
+                            maxlength="19"
+                          />
                         </div>
                         <div class="form-group">
                           <label>Nome no Cartão</label>
-                          <input type="text" id="card-name" placeholder="Nome como no cartão">
+                          <input
+                            type="text"
+                            id="card-name"
+                            placeholder="Nome como no cartão"
+                          />
                         </div>
                         <div class="form-group-row">
                           <div class="form-group">
                             <label>Validade</label>
-                            <input type="text" id="card-expiry" placeholder="MM/AA" maxlength="5">
+                            <input
+                              type="text"
+                              id="card-expiry"
+                              placeholder="MM/AA"
+                              maxlength="5"
+                            />
                           </div>
                           <div class="form-group">
                             <label>CVV</label>
-                            <input type="password" id="card-cvv" placeholder="123" maxlength="4">
+                            <input
+                              type="password"
+                              id="card-cvv"
+                              placeholder="123"
+                              maxlength="4"
+                            />
                           </div>
                         </div>
                         <div class="form-group">
                           <label>Parcelamento</label>
-                          <select id="installment-select" class="installment-select">
-                            <!-- Preenchido via JS -->
-                          </select>
+                          <select
+                            id="installment-select"
+                            class="installment-select"
+                          ></select>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-
                 <div class="security-badges">
                   <div class="security-icons">
                     <i data-lucide="shield-check"></i>
@@ -510,7 +544,7 @@
                     <span>Confirmar e Finalizar Pedido</span>
                     <i data-lucide="check"></i>
                   </button>
-                  <!-- Barra de progresso do processamento -->
+
                   <div
                     id="checkout-progress-wrap"
                     class="checkout-progress-wrap hidden"
@@ -532,7 +566,6 @@
             </div>
           </div>
 
-          <!-- Tela de Confirmação Final de Compra -->
           <div
             id="success-message"
             class="success-screen hidden"
@@ -594,7 +627,15 @@
                     <span>Entregue</span>
                   </div>
                 </div>
-                <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 1rem;">Estimativa de entrega: 3-5 dias úteis.</p>
+                <p
+                  style="
+                    font-size: 0.8rem;
+                    color: var(--text-secondary);
+                    margin-top: 1rem;
+                  "
+                >
+                  Estimativa de entrega: 3-5 dias úteis.
+                </p>
               </div>
 
               <div class="success-actions">
@@ -612,7 +653,6 @@
         </div>
       </div>
     </aside>
-
     <script src="script.js"></script>
   </body>
 </html>
