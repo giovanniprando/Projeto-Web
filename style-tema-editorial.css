@@ -385,3 +385,21 @@ button, select { font-family: inherit; letter-spacing: 1px; }
     text-align: center;
 }
 
+/* ==========================================================================
+   CORREÇÃO: IMAGENS DOS PRODUTOS (todas iguais, quadradas e inteiras)
+   ========================================================================== */
+.product-image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    margin-bottom: var(--space-lg);
+    background: #fff;
+    overflow: hidden;
+}
+
+.product-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
