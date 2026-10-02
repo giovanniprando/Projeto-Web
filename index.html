@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -23,89 +23,91 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="style-tema-claro.css" id="theme-stylesheet" />
+    <link rel="stylesheet" href="style.css" id="theme-stylesheet" />
 
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
-    <div id="top-greeting" class="top-greeting"></div>
-    <div id="overlay" class="overlay" aria-hidden="true"></div>
+    <a href="#conteudo-principal" class="link-pular"
+      >Ir para o conteúdo principal</a
+    >
 
-    <div id="toast-notification" class="toast" role="status" aria-live="polite">
-      <i data-lucide="check-circle" class="toast-icon"></i>
-      <span id="toast-message">Fragrância adicionada à sua coleção.</span>
+    <div id="saudacao-topo" class="saudacao-topo"></div>
+
+    <div
+      id="camada-sobreposicao"
+      class="camada-sobreposicao"
+      aria-hidden="true"
+    ></div>
+
+    <div
+      id="notificacao-toast"
+      class="notificacao"
+      role="status"
+      aria-live="polite"
+    >
+      <i data-lucide="check-circle" class="icone-notificacao"></i>
+      <span id="mensagem-toast">Fragrância.</span>
     </div>
 
-    <header class="site-header" id="site-header">
-      <div class="header-container">
-        <button
-          class="mobile-menu-btn"
-          id="mobile-menu-btn"
-          aria-label="Abrir menu de navegação"
-          aria-expanded="false"
-          aria-controls="main-nav"
-        >
-          <i data-lucide="menu" class="menu-icon-open"></i>
-          <i data-lucide="x" class="menu-icon-close"></i>
-        </button>
-
-        <a href="#" class="brand-logo" aria-label="L'Or Doré — Página Inicial">
-          <span class="logo-accent">✦</span>
-          <span class="logo-title">L'Or Doré</span>
-          <span class="logo-subtitle">Haute Parfumerie</span>
+    <header class="cabecalho-site" id="cabecalho-site">
+      <div class="container-cabecalho">
+        <!-- Logo da loja -->
+        <a href="#" class="logo-marca" aria-label="L'Or Doré — Página Inicial">
+          <span class="titulo-logo">L'Or Doré</span>
         </a>
 
-        <nav class="main-nav" id="main-nav" aria-label="Menu Principal">
+        <nav
+          class="navegacao-principal"
+          id="navegacao-principal"
+          aria-label="Menu Principal"
+        >
           <ul>
             <li>
-              <button class="nav-link active" data-category="todos">
+              <button class="link-navegacao ativo" data-category="todos">
                 Coleção
               </button>
             </li>
             <li>
-              <button class="nav-link" data-category="Feminino">
+              <button class="link-navegacao" data-category="Feminino">
                 Feminino
               </button>
             </li>
             <li>
-              <button class="nav-link" data-category="Masculino">
+              <button class="link-navegacao" data-category="Masculino">
                 Masculino
               </button>
             </li>
             <li>
-              <button class="nav-link" data-category="Compartilhável">
+              <button class="link-navegacao" data-category="Unissex">
                 Unissex
               </button>
             </li>
           </ul>
         </nav>
 
-        <div class="header-actions">
-          <div class="search-wrapper" id="search-wrapper">
+        <div class="acoes-cabecalho">
+          <div class="container-busca" id="container-busca">
             <button
-              class="search-toggle-btn"
-              id="search-toggle-btn"
+              class="btn-abrir-busca"
+              id="btn-abrir-busca"
               aria-label="Abrir busca"
               aria-expanded="false"
             >
               <i data-lucide="search"></i>
             </button>
-            <div class="search-panel" id="search-panel" role="search">
+            <div class="painel-busca" id="painel-busca" role="search">
               <input
                 type="search"
-                id="search-input"
-                class="search-input"
+                id="input-busca"
+                class="input-busca"
                 placeholder="Buscar fragrâncias..."
                 aria-label="Buscar fragrâncias"
                 autocomplete="off"
               />
               <button
-                class="search-close-btn"
-                id="search-close-btn"
+                class="btn-fechar-busca"
+                id="btn-fechar-busca"
                 aria-label="Fechar busca"
               >
                 <i data-lucide="x"></i>
@@ -113,41 +115,23 @@
             </div>
           </div>
 
-          <div class="sort-wrapper">
-            <select
-              id="sort-select"
-              class="sort-select"
-              aria-label="Ordenar produtos"
-            >
-              <option value="default">Ordenar</option>
-              <option value="price-asc">Menor Preço</option>
-              <option value="price-desc">Maior Preço</option>
-              <option value="name-asc">A — Z</option>
-              <option value="name-desc">Z — A</option>
-            </select>
-          </div>
-
           <div
-            class="theme-switcher"
+            class="seletor-tema"
             role="group"
             aria-label="Selecionar tema visual"
           >
             <button
-              class="theme-btn"
+              class="btn-tema ativo"
               data-theme="escuro"
               aria-label="Tema Escuro"
             >
               Escuro
             </button>
-            <button
-              class="theme-btn active"
-              data-theme="claro"
-              aria-label="Tema Claro"
-            >
+            <button class="btn-tema" data-theme="claro" aria-label="Tema Claro">
               Claro
             </button>
             <button
-              class="theme-btn"
+              class="btn-tema"
               data-theme="editorial"
               aria-label="Tema Editorial"
             >
@@ -156,120 +140,125 @@
           </div>
 
           <button
-            id="cart-toggle-btn"
-            class="cart-trigger-btn"
+            id="btn-abrir-carrinho"
+            class="btn-acionar-carrinho"
             aria-label="Abrir Carrinho"
             aria-expanded="false"
           >
             <i data-lucide="shopping-bag"></i>
-            <span class="cart-trigger-label">Carrinho</span>
-            <span id="cart-badge" class="cart-badge" aria-live="polite">0</span>
+            <span class="texto-acionar-carrinho">Carrinho</span>
+            <span
+              id="contador-carrinho"
+              class="contador-carrinho"
+              aria-live="polite"
+              >0</span
+            >
           </button>
         </div>
       </div>
     </header>
 
-    <main id="main-content">
-      <section class="hero-section" aria-label="Banner principal">
-        <div class="hero-bg-overlay"></div>
-        <div class="hero-visual">
-          <div class="hero-glow"></div>
+    <main id="conteudo-principal">
+      <!-- Seção do Banner / Hero -->
+      <section class="secao-destaque" aria-label="Banner principal">
+        <div class="sobreposicao-fundo-destaque"></div>
+        <div class="visual-destaque">
+          <div class="brilho-destaque"></div>
         </div>
-        <div class="hero-content">
-          <p class="hero-tagline" aria-hidden="true">
+        <div class="conteudo-destaque">
+          <p class="slogan-destaque" aria-hidden="true">
             Edições Limitadas & Extratos Raros
           </p>
-          <h1 class="hero-title">
-            <span class="hero-title-line">A Arte da</span>
-            <span class="hero-title-line hero-title-accent"
+          <h1 class="titulo-destaque">
+            <span class="linha-titulo-destaque">A Arte da</span>
+            <span class="linha-titulo-destaque destaque-titulo-destaque"
               >Perfumaria de Nicho</span
             >
           </h1>
-          <p class="hero-description">
+          <p class="descricao-destaque">
             Fragrâncias exclusivas formuladas pelos mestres perfumistas mais
             renomados do mundo. Alquimia pura convertida em elegância atemporal.
           </p>
-          <a href="#catalog-section" class="btn-hero">
+          <a href="#secao-catalogo" class="btn-destaque">
             <span>Explorar a Coleção</span>
             <i data-lucide="arrow-down"></i>
           </a>
         </div>
-        <div class="hero-scroll-indicator" aria-hidden="true">
-          <span class="scroll-line"></span>
+        <div class="indicador-rolagem-destaque" aria-hidden="true">
+          <span class="linha-rolagem"></span>
         </div>
       </section>
 
-      <section id="catalog-section" class="catalog-section">
-        <header class="section-header">
-          <span class="section-badge">Exclusividade L'Or Doré</span>
-          <h2 class="section-title">Fragrâncias em Destaque</h2>
-          <div class="gold-separator"></div>
+      <!-- Catálogo de Perfumes -->
+      <section id="secao-catalogo" class="secao-catalogo">
+        <header class="cabecalho-secao">
+          <span class="etiqueta-secao">Exclusividade L'Or Doré</span>
+          <h2 class="titulo-secao">Fragrâncias em Destaque</h2>
+          <div class="separador-dourado"></div>
         </header>
 
-        <div class="catalog-meta" aria-live="polite">
-          <span id="product-count" class="product-count"></span>
+        <!-- Mostra a quantidade de produtos na tela -->
+        <div class="meta-catalogo" aria-live="polite">
+          <span id="contador-produtos" class="contador-produtos"></span>
         </div>
 
+        <!-- Grade (Grid) onde o JavaScript vai inserir os cartões de produtos -->
         <div
-          id="product-grid"
-          class="product-grid"
+          id="grade-produtos"
+          class="grade-produtos"
           role="region"
           aria-label="Catálogo de Perfumes"
         ></div>
 
-        <div id="no-results" class="no-results hidden" role="status">
+        <!-- Mensagem de "não encontrado" (inicia escondida) -->
+        <div id="sem-resultados" class="sem-resultados oculto" role="status">
           <i data-lucide="search-x"></i>
           <p>Nenhuma fragrância encontrada.</p>
-          <button class="btn-link-subtle" id="clear-filters-btn">
+          <button class="btn-link-sutil" id="btn-limpar-filtros">
             Limpar filtros
           </button>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="footer-container">
-        <div class="footer-brand">
-          <p class="logo-title">L'Or Doré</p>
-          <p class="footer-tag">
-            Sua boutique privada de perfumaria autoral e de nicho.
-          </p>
+    <!-- ==================== RODAPÉ ==================== -->
+    <footer class="rodape-site">
+      <div class="container-rodape">
+        <div class="marca-rodape">
+          <p class="titulo-logo">L'Or Doré</p>
         </div>
-        <div class="footer-links">
+        <div class="links-rodape">
           <ul>
-            <li><a href="#catalog-section">Coleção</a></li>
+            <li><a href="#secao-catalogo">Coleção</a></li>
             <li><a href="#">Sobre</a></li>
             <li><a href="#">Contato</a></li>
           </ul>
         </div>
-        <div class="footer-info">
+        <div class="info-rodape">
           <p>
             &copy; 2026 L'Or Doré Haute Parfumerie. Projeto Acadêmico de
             E-Commerce Premium.
-          </p>
-          <p class="footer-note">
-            Estilos CSS gerados via Inteligência Artificial (Gemini / Claude).
           </p>
         </div>
       </div>
     </footer>
 
     <aside
-      id="cart-sidebar"
-      class="cart-drawer"
+      id="barra-lateral-carrinho"
+      class="gaveta-carrinho"
       role="dialog"
       aria-modal="true"
       aria-label="Carrinho de Compras"
     >
-      <div id="cart-view" class="drawer-view cart-view">
-        <header class="drawer-header">
-          <div class="drawer-title-group">
-            <i data-lucide="shopping-bag" class="drawer-icon"></i>
+      <div id="vista-carrinho" class="vista-gaveta vista-carrinho">
+        <header class="cabecalho-gaveta">
+          <div class="grupo-titulo-gaveta">
+            <i data-lucide="shopping-bag" class="icone-gaveta"></i>
             <h2>Seu Carrinho</h2>
           </div>
           <button
-            id="close-cart-btn"
-            class="close-drawer-btn"
+            id="btn-fechar-carrinho"
+            class="btn-fechar-gaveta"
             aria-label="Fechar Carrinho"
           >
             <i data-lucide="x"></i>
@@ -277,57 +266,57 @@
         </header>
 
         <div
-          id="cart-items-container"
-          class="drawer-body cart-items-list"
+          id="container-itens-carrinho"
+          class="corpo-gaveta lista-itens-carrinho"
         ></div>
 
-        <div id="cart-curiosity-container" class="cart-curiosity-container">
-          <i data-lucide="sparkles" class="curiosity-icon"></i>
-          <span id="cart-curiosity-text"
-            >Você sabia? O âmbar gris é um ingrediente raríssimo usado na alta
-            perfumaria.</span
-          >
-        </div>
-
-        <footer class="drawer-footer">
-          <div class="price-summary-row">
-            <span class="summary-label">Subtotal</span>
-            <span id="cart-subtotal-value" class="summary-value">R$ 0,00</span>
+        <footer class="rodape-gaveta">
+          <div class="linha-resumo-preco">
+            <span class="texto-resumo">Subtotal</span>
+            <span id="valor-subtotal-carrinho" class="valor-resumo"
+              >R$ 0,00</span
+            >
           </div>
+
           <div
-            class="price-summary-row hidden"
-            id="cart-savings-row"
+            class="linha-resumo-preco oculto"
+            id="linha-economia-carrinho"
             style="color: var(--color-success)"
           >
-            <span class="summary-label">Você está economizando</span>
-            <span id="cart-savings-value" class="summary-value">- R$ 0,00</span>
+            <span class="texto-resumo">Você está economizando</span>
+            <span id="valor-economia-carrinho" class="valor-resumo"
+              >- R$ 0,00</span
+            >
           </div>
-          <div class="price-summary-row">
-            <span class="summary-label">Frete (Entrega Especial)</span>
-            <span class="summary-value" style="color: var(--color-success)"
+
+          <div class="linha-resumo-preco">
+            <span class="texto-resumo">Frete (Entrega Especial)</span>
+            <span class="valor-resumo" style="color: var(--color-success)"
               >Grátis</span
             >
           </div>
-          <div class="price-summary-row total-row">
-            <span class="summary-label">Total Estimado</span>
-            <span id="cart-total-value" class="summary-value gold-text"
+
+          <div class="linha-resumo-preco linha-total">
+            <span class="texto-resumo">Total Estimado</span>
+            <span id="valor-total-carrinho" class="valor-resumo texto-dourado"
               >R$ 0,00</span
             >
           </div>
 
           <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem">
             <button
-              id="clear-cart-btn"
-              class="btn-secondary-outline"
+              id="btn-esvaziar-carrinho"
+              class="btn-secundario-contorno"
               style="padding: 0 1rem"
               aria-label="Esvaziar Carrinho"
               title="Esvaziar Carrinho"
             >
               <i data-lucide="trash-2"></i>
             </button>
+
             <button
-              id="go-to-checkout-btn"
-              class="btn-primary-gold"
+              id="btn-ir-pagamento"
+              class="btn-primario-dourado"
               style="flex: 1"
               disabled
             >
@@ -335,229 +324,253 @@
               <i data-lucide="arrow-right"></i>
             </button>
           </div>
-          <button id="continue-shopping-btn" class="btn-link-subtle">
+          <button id="btn-continuar-comprando" class="btn-link-sutil">
             Continuar Navegando
           </button>
         </footer>
       </div>
+
       <div
-        id="checkout-view"
-        class="drawer-view checkout-view hidden"
+        id="vista-pagamento"
+        class="vista-gaveta vista-pagamento oculto"
         aria-hidden="true"
       >
-        <div class="checkout-wrapper">
-          <div id="checkout-content" class="checkout-content">
-            <header class="checkout-header">
+        <div class="container-pagamento">
+          <div id="conteudo-pagamento" class="conteudo-pagamento">
+            <header class="cabecalho-pagamento">
               <button
-                id="cancel-checkout-btn"
-                class="checkout-back-btn"
+                id="btn-cancelar-pagamento"
+                class="btn-voltar-pagamento"
                 aria-label="Voltar ao carrinho"
               >
                 <i data-lucide="arrow-left"></i>
                 <span>Voltar</span>
               </button>
-              <span class="checkout-brand-tag"
+              <span class="etiqueta-marca-pagamento"
                 >L'Or Doré — Finalização de Pedido</span
               >
-              <h2 class="checkout-title">Resumo do Seu Pedido</h2>
-              <p class="checkout-subtitle">
+              <h2 class="titulo-pagamento">Resumo do Seu Pedido</h2>
+              <p class="subtitulo-pagamento">
                 Revise suas seleções exclusivas antes de confirmar o pedido.
               </p>
             </header>
 
-            <div class="checkout-grid">
-              <div class="checkout-items-card">
-                <h3 class="card-subtitle">
+            <div class="grade-pagamento">
+              <div class="cartao-itens-pagamento">
+                <h3 class="subtitulo-cartao">
                   <i data-lucide="package"></i> Fragrâncias Selecionadas
                 </h3>
                 <div
-                  id="checkout-summary-list"
-                  class="checkout-summary-list"
+                  id="lista-resumo-pagamento"
+                  class="lista-resumo-pagamento"
                 ></div>
               </div>
 
-              <div class="checkout-payment-card">
-                <h3 class="card-subtitle">
+              <div class="cartao-metodo-pagamento">
+                <h3 class="subtitulo-cartao">
                   <i data-lucide="credit-card"></i> Demonstrativo Financeiro
                 </h3>
 
-                <div class="checkout-financials">
-                  <div class="financial-line">
+                <div class="financeiro-pagamento">
+                  <div class="linha-financeira">
                     <span>Subtotal dos Itens</span>
-                    <span id="checkout-subtotal">R$ 0,00</span>
+                    <span id="subtotal-pagamento">R$ 0,00</span>
                   </div>
-                  <div class="financial-line">
+                  <div class="linha-financeira">
                     <span>Envio Cortesia (Seguro Expresso)</span>
-                    <span class="gold-text">GRÁTIS</span>
+                    <span class="texto-dourado">GRÁTIS</span>
                   </div>
-                  <div class="financial-line total-line">
+                  <div class="linha-financeira linha-total-financeiro">
                     <span>Valor Total</span>
-                    <span id="checkout-total-value" class="total-price-display"
+                    <span
+                      id="valor-total-pagamento"
+                      class="exibicao-preco-total"
                       >R$ 0,00</span
                     >
                   </div>
                 </div>
 
-                <div class="payment-method-demo">
-                  <h4 class="payment-method-title">
+                <div class="demonstracao-metodo-pagamento">
+                  <h4 class="titulo-metodo-pagamento">
                     <i data-lucide="wallet"></i>
                     Método de Pagamento
                   </h4>
-                  <div class="payment-options">
-                    <label class="payment-option selected" data-method="pix">
+
+                  <div class="opcoes-pagamento">
+                    <label
+                      class="opcao-pagamento selecionado"
+                      data-method="pix"
+                    >
                       <input type="radio" name="payment" value="pix" checked />
-                      <span class="payment-option-content">
-                        <span class="payment-option-name">PIX</span>
-                        <span class="payment-option-desc"
+                      <span class="conteudo-opcao-pagamento">
+                        <span class="nome-opcao-pagamento">PIX</span>
+                        <span class="descricao-opcao-pagamento"
                           >Aprovação instantânea</span
                         >
                       </span>
                     </label>
-                    <label class="payment-option" data-method="card">
+                    <label class="opcao-pagamento" data-method="card">
                       <input type="radio" name="payment" value="card" />
-                      <span class="payment-option-content">
-                        <span class="payment-option-name"
+                      <span class="conteudo-opcao-pagamento">
+                        <span class="nome-opcao-pagamento"
                           >Cartão de Crédito</span
                         >
-                        <span class="payment-option-desc"
+                        <span class="descricao-opcao-pagamento"
                           >Até 12x sem juros</span
                         >
                       </span>
                     </label>
                   </div>
-                  <div class="payment-details">
-                    <div id="pix-details" class="payment-detail-section active">
-                      <div class="pix-qrcode-box">
+
+                  <div class="detalhes-pagamento">
+                    <div
+                      id="detalhes-pix"
+                      class="secao-detalhe-pagamento ativo"
+                    >
+                      <div class="caixa-qrcode-pix">
                         <img
                           src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=LOrDorePixMock"
                           alt="QR Code PIX"
                         />
                       </div>
-                      <div class="pix-code-box">
+                      <div class="caixa-codigo-pix">
                         <input
                           type="text"
-                          id="pix-copy-input"
+                          id="input-copia-pix"
                           value="00020126580014br.gov.bcb.pix0136fake-pix-code-lordore"
                           readonly
                         />
                         <button
-                          id="btn-copy-pix"
-                          class="btn-secondary-outline btn-small"
+                          id="btn-copiar-pix"
+                          class="btn-secundario-contorno btn-pequeno"
                           type="button"
                         >
                           <i data-lucide="copy"></i> Copiar
                         </button>
                       </div>
-                      <div class="pix-timer">
+                      <div class="cronometro-pix">
                         <i data-lucide="clock"></i> Expira em
-                        <span id="pix-countdown">10:00</span>
+                        <span id="contador-tempo-pix">10:00</span>
                       </div>
                     </div>
+
                     <div
-                      id="card-details"
-                      class="payment-detail-section hidden"
+                      id="detalhes-cartao"
+                      class="secao-detalhe-pagamento oculto"
                     >
-                      <div class="visual-card">
-                        <div class="visual-card-chip"></div>
-                        <div id="visual-card-flag" class="card-flag"></div>
-                        <div id="visual-card-number" class="visual-card-number">
+                      <div class="cartao-visual">
+                        <div class="chip-cartao-visual"></div>
+                        <div
+                          id="bandeira-cartao-visual"
+                          class="bandeira-cartao"
+                        ></div>
+                        <div
+                          id="numero-cartao-visual"
+                          class="numero-cartao-visual"
+                        >
                           0000 0000 0000 0000
                         </div>
-                        <div class="visual-card-bottom">
-                          <div id="visual-card-name" class="visual-card-name">
-                            NOME IMPRESSO
-                          </div>
-                          <div
-                            id="visual-card-expiry"
-                            class="visual-card-expiry"
-                          >
-                            MM/AA
-                          </div>
+                        <div
+                          style="
+                            display: flex;
+                            justify-content: space-between;
+                            font-size: 0.8rem;
+                            text-transform: uppercase;
+                            letter-spacing: 1px;
+                            color: #ccc;
+                          "
+                        >
+                          <div id="nome-cartao-visual">NOME IMPRESSO</div>
+                          <div id="validade-cartao-visual">MM/AA</div>
                         </div>
                       </div>
-                      <div class="card-form">
-                        <div class="form-group">
+
+                      <!-- Formulário -->
+                      <div class="formulario-cartao">
+                        <div class="grupo-formulario">
                           <label>Número do Cartão</label>
                           <input
                             type="text"
-                            id="card-number"
+                            id="numero-cartao"
                             placeholder="0000 0000 0000 0000"
                             maxlength="19"
                           />
                         </div>
-                        <div class="form-group">
+                        <div class="grupo-formulario">
                           <label>Nome no Cartão</label>
                           <input
                             type="text"
-                            id="card-name"
+                            id="nome-cartao"
                             placeholder="Nome como no cartão"
                           />
                         </div>
-                        <div class="form-group-row">
-                          <div class="form-group">
+                        <div class="linha-grupo-formulario">
+                          <div class="grupo-formulario">
                             <label>Validade</label>
                             <input
                               type="text"
-                              id="card-expiry"
+                              id="validade-cartao"
                               placeholder="MM/AA"
                               maxlength="5"
                             />
                           </div>
-                          <div class="form-group">
+                          <div class="grupo-formulario">
                             <label>CVV</label>
                             <input
                               type="password"
-                              id="card-cvv"
+                              id="cvv-cartao"
                               placeholder="123"
                               maxlength="4"
                             />
                           </div>
                         </div>
-                        <div class="form-group">
+                        <div class="grupo-formulario">
                           <label>Parcelamento</label>
                           <select
-                            id="installment-select"
-                            class="installment-select"
+                            id="select-parcelamento"
+                            class="select-parcelamento-classe"
                           ></select>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="security-badges">
-                  <div class="security-icons">
+
+                <div class="selos-seguranca">
+                  <div class="icones-seguranca">
                     <i data-lucide="shield-check"></i>
                     <span>Compra 100% Segura</span>
                   </div>
-                  <div class="security-flags">
-                    <span class="flag-icon">PIX</span>
-                    <span class="flag-icon">VISA</span>
-                    <span class="flag-icon">MASTER</span>
+                  <div class="bandeiras-seguranca">
+                    <span class="icone-bandeira">PIX</span>
+                    <span class="icone-bandeira">VISA</span>
+                    <span class="icone-bandeira">MASTER</span>
                   </div>
                 </div>
 
-                <div class="checkout-actions">
+                <!-- Botão de Finalizar -->
+                <div class="acoes-pagamento">
                   <button
-                    id="confirm-purchase-btn"
-                    class="btn-primary-gold btn-large"
+                    id="btn-confirmar-compra"
+                    class="btn-primario-dourado btn-grande"
                   >
                     <span>Confirmar e Finalizar Pedido</span>
                     <i data-lucide="check"></i>
                   </button>
 
                   <div
-                    id="checkout-progress-wrap"
-                    class="checkout-progress-wrap hidden"
+                    id="container-progresso-pagamento"
+                    class="container-progresso-pagamento oculto"
                   >
-                    <div class="checkout-progress-track">
+                    <div class="trilha-progresso-pagamento">
                       <div
-                        id="checkout-progress-bar"
-                        class="checkout-progress-bar"
+                        id="barra-progresso-pagamento"
+                        class="barra-progresso-pagamento"
                       ></div>
                     </div>
                     <span
-                      id="checkout-progress-label"
-                      class="checkout-progress-label"
+                      id="texto-progresso-pagamento"
+                      class="texto-progresso-pagamento"
                       >Processando pagamento...</span
                     >
                   </div>
@@ -567,83 +580,53 @@
           </div>
 
           <div
-            id="success-message"
-            class="success-screen hidden"
+            id="mensagem-sucesso"
+            class="tela-sucesso oculto"
             aria-hidden="true"
           >
-            <div class="success-card">
-              <div class="success-icon-wrapper">
+            <div class="cartao-sucesso">
+              <div class="container-icone-sucesso">
                 <svg
-                  class="success-checkmark"
+                  class="marca-selecao-sucesso"
                   viewBox="0 0 52 52"
                   aria-hidden="true"
                 >
                   <circle
-                    class="checkmark-circle"
+                    class="circulo-marca-selecao"
                     cx="26"
                     cy="26"
                     r="25"
                     fill="none"
                   />
                   <path
-                    class="checkmark-check"
+                    class="icone-marca-selecao"
                     fill="none"
                     d="M14.1 27.2l7.1 7.2 16.7-16.8"
                   />
                 </svg>
               </div>
-              <span class="success-badge">Pedido Confirmado</span>
-              <h2 class="success-title">Obrigado por escolher a L'Or Doré</h2>
-              <p class="success-subtitle">
+              <span class="etiqueta-sucesso">Pedido Confirmado</span>
+              <h2 class="titulo-sucesso">Obrigado por escolher a L'Or Doré</h2>
+              <p class="subtitulo-sucesso">
                 Sua compra foi processada com sucesso e está sendo preparada
                 para envio artesanal.
               </p>
 
-              <div class="order-manifest">
+              <div class="resumo-pedido">
                 <h4>Itens Incluídos no Seu Pedido:</h4>
-                <p id="success-details-text" class="manifest-text"></p>
-                <p id="success-total-text" class="manifest-total"></p>
+                <p id="texto-detalhes-sucesso" class="texto-resumo-pedido"></p>
+                <p id="texto-total-sucesso" class="total-resumo-pedido"></p>
               </div>
 
-              <div id="funny-comparison" class="funny-comparison"></div>
-
-              <div class="delivery-timeline">
-                <h4>Acompanhe seu pedido</h4>
-                <div class="timeline-track">
-                  <div class="timeline-step active">
-                    <div class="step-dot"></div>
-                    <span>Confirmado</span>
-                  </div>
-                  <div class="timeline-step">
-                    <div class="step-dot"></div>
-                    <span>Em separação</span>
-                  </div>
-                  <div class="timeline-step">
-                    <div class="step-dot"></div>
-                    <span>A caminho</span>
-                  </div>
-                  <div class="timeline-step">
-                    <div class="step-dot"></div>
-                    <span>Entregue</span>
-                  </div>
-                </div>
-                <p
-                  style="
-                    font-size: 0.8rem;
-                    color: var(--text-secondary);
-                    margin-top: 1rem;
-                  "
+              <div class="acoes-sucesso">
+                <button
+                  id="btn-imprimir-recibo"
+                  class="btn-secundario-contorno"
                 >
-                  Estimativa de entrega: 3-5 dias úteis.
-                </p>
-              </div>
-
-              <div class="success-actions">
-                <button id="print-receipt-btn" class="btn-secondary-outline">
                   <i data-lucide="printer"></i>
                   <span>Baixar / Imprimir Recibo</span>
                 </button>
-                <button id="return-home-btn" class="btn-primary-gold">
+                <button id="btn-voltar-loja" class="btn-primario-dourado">
                   <span>Retornar à Loja</span>
                   <i data-lucide="arrow-right"></i>
                 </button>
@@ -653,6 +636,6 @@
         </div>
       </div>
     </aside>
-    <script src="script.js"></script>
+    <script src="script.js" charset="UTF-8"></script>
   </body>
 </html>

@@ -1,1124 +1,970 @@
-const temas = {
+﻿var temas = {
   escuro: "style.css",
   claro: "style-tema-claro.css",
   editorial: "style-tema-editorial.css",
 };
 
-const catalogo = [
+var catalogo = [
   {
     id: 1,
-    brand: "Maison Francis Kurkdjian",
-    name: "Baccarat Rouge 540",
-    category: "Unissex",
-    olfactoryFamily: "Floral Amadeirado",
-    notes: "Jasmim, Açafrão, Cedro, Âmbar Gris",
-    price: 2450.0,
-    originalPrice: 2800.0,
-    image:
+    marca: "Maison Francis Kurkdjian",
+    nome: "Baccarat Rouge 540",
+    categoria: "Unissex",
+    familiaOlfativa: "Floral Amadeirado",
+    notas: "Jasmim, Açafrão, Cedro, Âmbar Gris",
+    preco: 2450.0,
+    precoOriginal: 2800.0,
+    imagem:
       "https://acdn-us.mitiendanube.com/stores/002/652/199/products/design-sem-nome-2024-02-22t130549-569-9a9d05687801c4565a17086179586872-1024-1024.webp",
   },
   {
     id: 2,
-    brand: "Creed",
-    name: "Aventus",
-    category: "Masculino",
-    olfactoryFamily: "Chipre Frutado",
-    notes: "Abacaxi, Bétula, Almíscar, Musgo de Carvalho",
-    price: 3100.0,
-    originalPrice: 3500.0,
-    image:
+    marca: "Creed",
+    nome: "Aventus",
+    categoria: "Masculino",
+    familiaOlfativa: "Chipre Frutado",
+    notas: "Abacaxi, Bétula, Almíscar, Musgo de Carvalho",
+    preco: 3100.0,
+    precoOriginal: 3500.0,
+    imagem:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUlGgFXnQvDB2vG5CzwtQiU0Hmp6mQCyB3CAHQa8fALQ&s",
   },
   {
     id: 3,
-    brand: "Tom Ford",
-    name: "Tobacco Vanille",
-    category: "Unissex",
-    olfactoryFamily: "Oriental Especiado",
-    notes: "Folha de Tabaco, Baunilha, Cacau, Fava Tonka",
-    price: 2150.0,
-    originalPrice: 2400.0,
-    image:
+    marca: "Tom Ford",
+    nome: "Tobacco Vanille",
+    categoria: "Unissex",
+    familiaOlfativa: "Oriental Especiado",
+    notas: "Folha de Tabaco, Baunilha, Cacau, Fava Tonka",
+    preco: 2150.0,
+    precoOriginal: 2400.0,
+    imagem:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT10utiFaKKhd_zHlavJE2UE68TYfgWjaj6UdYj4rGjuQ&s=10",
   },
   {
     id: 4,
-    brand: "Le Labo",
-    name: "Santal 33",
-    category: "Unissex",
-    olfactoryFamily: "Amadeirado Aromático",
-    notes: "Sândalo, Cedro, Cardamomo, Violeta",
-    price: 1890.0,
-    image:
+    marca: "Le Labo",
+    nome: "Santal 33",
+    categoria: "Unissex",
+    familiaOlfativa: "Amadeirado Aromático",
+    notas: "Sândalo, Cedro, Cardamomo, Violeta",
+    preco: 1890.0,
+    imagem:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQMY3dif608Mrzt1BWEWKUTd97UqdL6__zdipd2jJN5Q&s=10",
   },
   {
     id: 5,
-    brand: "Roja Parfums",
-    name: "Elysium",
-    category: "Masculino",
-    olfactoryFamily: "Fougère Aromático",
-    notes: "Toranja, Vetiver, Âmbar Gris, Groselha Preta",
-    price: 4200.0,
-    image:
+    marca: "Roja Parfums",
+    nome: "Elysium",
+    categoria: "Masculino",
+    familiaOlfativa: "Fougère Aromático",
+    notas: "Toranja, Vetiver, Âmbar Gris, Groselha Preta",
+    preco: 4200.0,
+    imagem:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIpGSd7z_xqVnBjVjUNm9eqmknIxpg_EwsVg3bOV2kUw&s=10",
   },
   {
     id: 6,
-    brand: "Kilian",
-    name: "Love, Don't Be Shy",
-    category: "Feminino",
-    olfactoryFamily: "Oriental Floral",
-    notes: "Néroli, Flor de Laranjeira, Marshmallow, Baunilha",
-    price: 2350.0,
-    image:
+    marca: "Kilian",
+    nome: "Love, Don't Be Shy",
+    categoria: "Feminino",
+    familiaOlfativa: "Oriental Floral",
+    notas: "Néroli, Flor de Laranjeira, Marshmallow, Baunilha",
+    preco: 2350.0,
+    imagem:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6t76gpSxReAx3HtVLhOvAuY_1PwQxHmZvEGls4XonVg&s=10",
   },
   {
     id: 7,
-    brand: "Parfums de Marly",
-    name: "Layton",
-    category: "Masculino",
-    olfactoryFamily: "Oriental Floral",
-    notes: "Maçã, Lavanda, Baunilha, Pimenta Rosa",
-    price: 2100.0,
-    image:
+    marca: "Parfums de Marly",
+    nome: "Layton",
+    categoria: "Masculino",
+    familiaOlfativa: "Oriental Floral",
+    notas: "Maçã, Lavanda, Baunilha, Pimenta Rosa",
+    preco: 2100.0,
+    imagem:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSql81fhNuAdi1T4Q_cblLqFIJVSFe-MD9LoQofmUy8VA&s=10",
   },
   {
     id: 8,
-    brand: "Amouage",
-    name: "Interlude Man",
-    category: "Masculino",
-    olfactoryFamily: "Amadeirado Especiado",
-    notes: "Orégano, Incenso, Opoponax, Couro",
-    price: 2850.0,
-    image:
+    marca: "Amouage",
+    nome: "Interlude Man",
+    categoria: "Masculino",
+    familiaOlfativa: "Amadeirado Especiado",
+    notas: "Orégano, Incenso, Opoponax, Couro",
+    preco: 2850.0,
+    imagem:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnaarX5NLP4O7KYAzJu6gz3jpfHqkYMod8BU_UpSgJxg&s=10",
   },
   {
     id: 9,
-    brand: "Byredo",
-    name: "Gypsy Water",
-    category: "Unissex",
-    olfactoryFamily: "Amadeirado Aromático",
-    notes: "Bergamota, Zimbro, Agulhas de Pinheiro, Sândalo",
-    price: 1950.0,
-    image:
+    marca: "Byredo",
+    nome: "Gypsy Water",
+    categoria: "Unissex",
+    familiaOlfativa: "Amadeirado Aromático",
+    notas: "Bergamota, Zimbro, Agulhas de Pinheiro, Sândalo",
+    preco: 1950.0,
+    imagem:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo9c7q5KHqBlQldcfIpv7hmcoL6kt7djcI5kUCI1yNJw&s=10",
   },
 ];
 
-let cart = [];
-const prefersReducedMotion = window.matchMedia(
-  "(prefers-reduced-motion: reduce)",
-).matches;
-let currentCategory = "todos";
-let currentSearch = "";
-let currentSort = "default";
-let toastTimeout;
-let currentTotalValue = 0;
-let pixInterval;
-let curiosityInterval;
-let cartIdleTimeout;
+var carrinho = [];
+var categoriaAtual = "todos";
+var buscaAtual = "";
+var timeoutNotificacao;
+var intervaloPix;
 
-const curiosities = [
-  "Você sabia? O âmbar gris é um ingrediente raríssimo usado para fixar fragrâncias.",
-  "A flor de jasmim precisa ser colhida à mão antes do nascer do sol para manter seu aroma.",
-  "O 'nariz' é como chamamos o mestre perfumista que cria as fragrâncias.",
-  "Baccarat Rouge 540 leva esse nome pela temperatura que o cristal precisa atingir para ficar vermelho.",
-  "Alguns perfumes de nicho demoram meses para macerar antes de serem engarrafados.",
-  "Na alta perfumaria, a íris é considerada uma das matérias-primas mais caras do mundo.",
-];
+function iniciar() {
+  carregarCarrinhoDoNavegador();
+  configurarEventos();
+  configurarTrocaDeTema();
+  renderizarProdutos();
+  atualizarInterfaceCarrinho();
+  lucide.createIcons();
+}
 
-function resetCartIdle() {
-  clearTimeout(cartIdleTimeout);
-  const btn = document.getElementById("go-to-checkout-btn");
-  if (btn) btn.classList.remove("pulse-btn");
-  if (cart.length > 0) {
-    cartIdleTimeout = setTimeout(() => {
-      const btnCheckout = document.getElementById("go-to-checkout-btn");
-      if (btnCheckout && !btnCheckout.disabled) {
-        btnCheckout.classList.add("pulse-btn");
-      }
-    }, 8000);
+function salvarCarrinhoNoNavegador() {
+  localStorage.setItem("lordore_carrinho", JSON.stringify(carrinho));
+}
+
+function carregarCarrinhoDoNavegador() {
+  var salvo = localStorage.getItem("lordore_carrinho");
+  if (salvo) {
+    try {
+      carrinho = JSON.parse(salvo);
+    } catch (e) {
+      carrinho = [];
+    }
   }
 }
-document.addEventListener("mousemove", resetCartIdle);
-document.addEventListener("keydown", resetCartIdle);
 
-const DOM = {
-  header: document.getElementById("site-header"),
-  mobileMenuBtn: document.getElementById("mobile-menu-btn"),
-  mainNav: document.getElementById("main-nav"),
-  navLinks: document.querySelectorAll(".nav-link"),
-  searchToggleBtn: document.getElementById("search-toggle-btn"),
-  searchCloseBtn: document.getElementById("search-close-btn"),
-  searchPanel: document.getElementById("search-panel"),
-  searchInput: document.getElementById("search-input"),
+function mostrarNotificacao(mensagem) {
+  var notificacao = document.getElementById("notificacao-toast");
+  var textoNotificacao = document.getElementById("mensagem-toast");
 
-  productGrid: document.getElementById("product-grid"),
-  productCount: document.getElementById("product-count"),
-  noResults: document.getElementById("no-results"),
-  clearFiltersBtn: document.getElementById("clear-filters-btn"),
-  toast: document.getElementById("toast-notification"),
-  toastMessage: document.getElementById("toast-message"),
-  overlay: document.getElementById("overlay"),
-  cartBtn: document.getElementById("cart-toggle-btn"),
-  cartBadge: document.getElementById("cart-badge"),
-  sidebar: document.getElementById("cart-sidebar"),
-  closeCartBtn: document.getElementById("close-cart-btn"),
-  cartView: document.getElementById("cart-view"),
-  cartItemsContainer: document.getElementById("cart-items-container"),
-  cartSubtotal: document.getElementById("cart-subtotal-value"),
-  cartTotal: document.getElementById("cart-total-value"),
-  goToCheckoutBtn: document.getElementById("go-to-checkout-btn"),
-  continueShoppingBtn: document.getElementById("continue-shopping-btn"),
-  checkoutView: document.getElementById("checkout-view"),
-  checkoutContent: document.getElementById("checkout-content"),
-  cancelCheckoutBtn: document.getElementById("cancel-checkout-btn"),
-  checkoutSummaryList: document.getElementById("checkout-summary-list"),
-  checkoutSubtotal: document.getElementById("checkout-subtotal"),
-  checkoutTotalValue: document.getElementById("checkout-total-value"),
-  confirmPurchaseBtn: document.getElementById("confirm-purchase-btn"),
-  paymentOptions: document.querySelectorAll(".payment-option"),
-  successMessage: document.getElementById("success-message"),
-  successDetailsText: document.getElementById("success-details-text"),
-  successTotalText: document.getElementById("success-total-text"),
-  returnHomeBtn: document.getElementById("return-home-btn"),
-};
+  if (timeoutNotificacao) {
+    clearTimeout(timeoutNotificacao);
+  }
 
-function animateValue(element, start, end, duration) {
-  if (!element) return;
-  let startTimestamp = null;
-  const step = (timestamp) => {
-    if (!startTimestamp) startTimestamp = timestamp;
-    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-    const easeProgress = progress * (2 - progress);
-    const current = easeProgress * (end - start) + start;
-    element.textContent = formatPrice(current);
-    if (progress < 1) {
-      window.requestAnimationFrame(step);
-    } else {
-      element.textContent = formatPrice(end);
+  textoNotificacao.textContent = mensagem;
+  notificacao.classList.add("mostrar");
+
+  timeoutNotificacao = setTimeout(function () {
+    notificacao.classList.remove("mostrar");
+  }, 3000);
+}
+
+function formatarPreco(valor) {
+  return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}
+
+function obterProdutosFiltrados() {
+  var filtrados = catalogo;
+
+  if (categoriaAtual !== "todos") {
+    filtrados = filtrados.filter(function (produto) {
+      return produto.categoria === categoriaAtual;
+    });
+  }
+
+  if (buscaAtual.trim() !== "") {
+    var termoBusca = buscaAtual.toLowerCase();
+    filtrados = filtrados.filter(function (produto) {
+      return (
+        produto.nome.toLowerCase().includes(termoBusca) ||
+        produto.marca.toLowerCase().includes(termoBusca) ||
+        produto.notas.toLowerCase().includes(termoBusca)
+      );
+    });
+  }
+
+  return filtrados;
+}
+
+function renderizarProdutos() {
+  var gradeDeProdutos = document.getElementById("grade-produtos");
+  var contadorProdutos = document.getElementById("contador-produtos");
+  var semResultados = document.getElementById("sem-resultados");
+
+  var produtosParaExibir = obterProdutosFiltrados();
+
+  contadorProdutos.textContent =
+    "Mostrando " + produtosParaExibir.length + " fragrância(s)";
+
+  if (produtosParaExibir.length === 0) {
+    gradeDeProdutos.innerHTML = "";
+    semResultados.classList.remove("oculto");
+    return;
+  }
+
+  semResultados.classList.add("oculto");
+  gradeDeProdutos.innerHTML = "";
+
+  for (var i = 0; i < produtosParaExibir.length; i++) {
+    var produto = produtosParaExibir[i];
+
+    var cartao = document.createElement("article");
+    cartao.className = "cartao-produto revelado";
+
+    cartao.innerHTML =
+      '<div class="container-imagem-produto">' +
+      '<span class="etiqueta-categoria">' +
+      produto.categoria +
+      "</span>" +
+      '<img src="' +
+      produto.imagem +
+      '" alt="' +
+      produto.nome +
+      " - " +
+      produto.marca +
+      '" class="imagem-produto" loading="lazy">' +
+      "</div>" +
+      '<div class="info-produto">' +
+      '<span class="marca-produto">' +
+      produto.marca +
+      "</span>" +
+      '<h3 class="nome-produto">' +
+      produto.nome +
+      "</h3>" +
+      '<p class="familia-olfativa-produto">' +
+      produto.familiaOlfativa +
+      "</p>" +
+      '<p class="notas-produto">' +
+      produto.notas +
+      "</p>" +
+      '<div class="rodape-produto">' +
+      '<span class="preco-produto">' +
+      formatarPreco(produto.preco) +
+      "</span>" +
+      '<button class="btn-adicionar-carrinho" data-id="' +
+      produto.id +
+      '" aria-label="Adicionar ' +
+      produto.nome +
+      ' ao carrinho">' +
+      "<span>Adicionar ao Carrinho</span>" +
+      "</button>" +
+      "</div>" +
+      "</div>";
+
+    gradeDeProdutos.appendChild(cartao);
+  }
+
+  lucide.createIcons();
+}
+
+function adicionarAoCarrinho(idProduto) {
+  carrinho.push(idProduto);
+  salvarCarrinhoNoNavegador();
+  atualizarInterfaceCarrinho();
+}
+
+function removerDoCarrinho(idProduto, removerTudo) {
+  if (removerTudo) {
+    carrinho = carrinho.filter(function (id) {
+      return id !== idProduto;
+    });
+  } else {
+    var ultimoIndice = carrinho.lastIndexOf(idProduto);
+    if (ultimoIndice !== -1) {
+      carrinho.splice(ultimoIndice, 1);
     }
-  };
-  window.requestAnimationFrame(step);
+  }
+  salvarCarrinhoNoNavegador();
+  atualizarInterfaceCarrinho();
 }
 
-function getFunnyComparison(total) {
-  return "";
+function atualizarInterfaceCarrinho() {
+  var contadorCart = document.getElementById("contador-carrinho");
+  var containerItens = document.getElementById("container-itens-carrinho");
+  var valorSubtotal = document.getElementById("valor-subtotal-carrinho");
+  var valorTotal = document.getElementById("valor-total-carrinho");
+  var btnIrPagamento = document.getElementById("btn-ir-pagamento");
+  var linhaEconomia = document.getElementById("linha-economia-carrinho");
+  var valorEconomia = document.getElementById("valor-economia-carrinho");
+
+  contadorCart.textContent = carrinho.length;
+
+  if (carrinho.length === 0) {
+    containerItens.innerHTML =
+      '<div class="estado-carrinho-vazio">' +
+      '<i data-lucide="shopping-bag"></i>' +
+      "<p>Sua coleção está vazia.</p>" +
+      '<button class="btn-secundario-contorno" id="btn-fechar-carrinho-vazio">Descobrir Fragrâncias</button>' +
+      "</div>";
+    valorSubtotal.textContent = "R$ 0,00";
+    valorTotal.textContent = "R$ 0,00";
+    btnIrPagamento.disabled = true;
+
+    if (linhaEconomia) {
+      linhaEconomia.classList.add("oculto");
+    }
+    lucide.createIcons();
+
+    var btnVazio = document.getElementById("btn-fechar-carrinho-vazio");
+    if (btnVazio) {
+      btnVazio.addEventListener("click", fecharCarrinho);
+    }
+    return;
+  }
+
+  btnIrPagamento.disabled = false;
+  containerItens.innerHTML = "";
+
+  var itensUnicos = catalogo.filter(function (produto) {
+    return carrinho.includes(produto.id);
+  });
+
+  var precoTotal = 0;
+  var precoTotalOriginal = 0;
+  for (var i = 0; i < carrinho.length; i++) {
+    var item = catalogo.find(function (p) {
+      return p.id === carrinho[i];
+    });
+    if (item) {
+      precoTotal = precoTotal + item.preco;
+      if (item.precoOriginal) {
+        precoTotalOriginal = precoTotalOriginal + item.precoOriginal;
+      } else {
+        precoTotalOriginal = precoTotalOriginal + item.preco;
+      }
+    }
+  }
+
+  var economia = precoTotalOriginal - precoTotal;
+
+  if (linhaEconomia && valorEconomia) {
+    if (economia > 0) {
+      linhaEconomia.classList.remove("oculto");
+      valorEconomia.textContent = "- " + formatarPreco(economia);
+    } else {
+      linhaEconomia.classList.add("oculto");
+    }
+  }
+
+  for (var j = 0; j < itensUnicos.length; j++) {
+    var produto = itensUnicos[j];
+
+    var quantidade = carrinho.filter(function (id) {
+      return id === produto.id;
+    }).length;
+
+    var htmlPreco =
+      '<div class="preco-item-carrinho">' +
+      formatarPreco(produto.preco) +
+      "</div>";
+
+    if (produto.precoOriginal && produto.precoOriginal > produto.preco) {
+      htmlPreco =
+        '<div class="preco-item-carrinho">' +
+        '<span style="text-decoration: line-through; font-size: 0.75rem; color: var(--text-secondary); margin-right: 4px;">' +
+        formatarPreco(produto.precoOriginal) +
+        "</span>" +
+        '<span style="color: var(--color-success);">' +
+        formatarPreco(produto.preco) +
+        "</span>" +
+        "</div>";
+    }
+
+    var elItem = document.createElement("div");
+    elItem.className = "cartao-item-carrinho";
+    elItem.innerHTML =
+      '<img src="' +
+      produto.imagem +
+      '" alt="' +
+      produto.nome +
+      '" class="miniatura-item-carrinho">' +
+      '<div class="detalhes-item-carrinho">' +
+      '<span class="marca-item-carrinho">' +
+      produto.marca +
+      "</span>" +
+      '<h4 class="nome-item-carrinho">' +
+      produto.nome +
+      "</h4>" +
+      htmlPreco +
+      '<div class="controles-item-carrinho">' +
+      '<button class="btn-quantidade remover-quantidade" data-id="' +
+      produto.id +
+      '" aria-label="Diminuir quantidade">-</button>' +
+      '<span class="exibicao-quantidade">' +
+      quantidade +
+      "</span>" +
+      '<button class="btn-quantidade adicionar-quantidade" data-id="' +
+      produto.id +
+      '" aria-label="Aumentar quantidade">+</button>' +
+      '<button class="btn-remover-item" data-id="' +
+      produto.id +
+      '" aria-label="Remover item">' +
+      '<i data-lucide="trash-2"></i>' +
+      "</button>" +
+      "</div>" +
+      "</div>";
+
+    containerItens.appendChild(elItem);
+  }
+
+  valorSubtotal.textContent = formatarPreco(precoTotal);
+  valorTotal.textContent = formatarPreco(precoTotal);
+
+  atualizarInterfacePagamento(itensUnicos, precoTotal);
+  lucide.createIcons();
 }
 
-function startCuriosities() {
-  const el = document.getElementById("cart-curiosity-text");
-  if (!el) return;
-  clearInterval(curiosityInterval);
-  curiosityInterval = setInterval(() => {
-    el.style.opacity = 0;
-    setTimeout(() => {
-      el.textContent =
-        curiosities[Math.floor(Math.random() * curiosities.length)];
-      el.style.opacity = 1;
-    }, 300);
-  }, 4500);
+function atualizarInterfacePagamento(itensUnicos, precoTotal) {
+  var listaResumo = document.getElementById("lista-resumo-pagamento");
+  var subtotalPagamento = document.getElementById("subtotal-pagamento");
+  var totalPagamento = document.getElementById("valor-total-pagamento");
+
+  listaResumo.innerHTML = "";
+
+  for (var i = 0; i < itensUnicos.length; i++) {
+    var produto = itensUnicos[i];
+    var quantidade = carrinho.filter(function (id) {
+      return id === produto.id;
+    }).length;
+
+    var linhaItem = document.createElement("div");
+    linhaItem.className = "item-resumo-pagamento";
+    linhaItem.innerHTML =
+      '<div style="flex: 1;">' +
+      '<span style="font-size:0.7rem; color:var(--gold-primary); text-transform:uppercase;">' +
+      produto.marca +
+      "</span>" +
+      '<h4 style="font-family:var(--font-serif); font-size:1.1rem; font-weight:400;">' +
+      produto.nome +
+      ' <span style="color:var(--text-secondary); font-family:var(--font-sans); font-size:0.8rem;">x' +
+      quantidade +
+      "</span></h4>" +
+      "</div>" +
+      '<div style="font-weight:500;">' +
+      formatarPreco(produto.preco * quantidade) +
+      "</div>";
+
+    listaResumo.appendChild(linhaItem);
+  }
+
+  subtotalPagamento.textContent = formatarPreco(precoTotal);
+  totalPagamento.textContent = formatarPreco(precoTotal);
+
+  atualizarParcelas(precoTotal);
 }
 
-function startPixTimer() {
-  clearInterval(pixInterval);
-  let time = 600; // 10 minutes
-  const display = document.getElementById("pix-countdown");
-  if (!display) return;
-  display.textContent = "10:00";
-  pixInterval = setInterval(() => {
-    let minutes = parseInt(time / 60, 10);
-    let seconds = parseInt(time % 60, 10);
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-    display.textContent = minutes + ":" + seconds;
-    if (--time < 0) {
-      time = 0;
-      clearInterval(pixInterval);
-      display.textContent = "00:00";
+function atualizarParcelas(total) {
+  var selecaoParc = document.getElementById("select-parcelamento");
+  if (!selecaoParc) return;
+
+  selecaoParc.innerHTML = "";
+
+  for (var i = 1; i <= 12; i++) {
+    var valorParcela = total / i;
+    var opcao = document.createElement("option");
+    opcao.value = i;
+    opcao.textContent =
+      i + "x de " + formatarPreco(valorParcela) + " sem juros";
+    selecaoParc.appendChild(opcao);
+  }
+}
+
+function iniciarCronometroPix() {
+  clearInterval(intervaloPix);
+
+  var tempo = 600;
+  var mostrador = document.getElementById("contador-tempo-pix");
+  if (!mostrador) return;
+
+  mostrador.textContent = "10:00";
+
+  intervaloPix = setInterval(function () {
+    var minutos = Math.floor(tempo / 60);
+    var segundos = tempo % 60;
+
+    if (minutos < 10) minutos = "0" + minutos;
+    if (segundos < 10) segundos = "0" + segundos;
+
+    mostrador.textContent = minutos + ":" + segundos;
+
+    tempo = tempo - 1;
+
+    if (tempo < 0) {
+      clearInterval(intervaloPix);
+      mostrador.textContent = "00:00";
     }
   }, 1000);
 }
 
-function updateInstallments(total) {
-  const select = document.getElementById("installment-select");
-  if (!select) return;
-  select.innerHTML = "";
-  for (let i = 1; i <= 12; i++) {
-    const val = total / i;
-    const opt = document.createElement("option");
-    opt.value = i;
-    opt.textContent = `${i}x de ${formatPrice(val)} sem juros`;
-    select.appendChild(opt);
+function abrirCarrinho() {
+  var lateral = document.getElementById("barra-lateral-carrinho");
+  lateral.classList.add("aberto");
+  lateral.setAttribute("aria-hidden", "false");
+
+  var fundo = document.getElementById("camada-sobreposicao");
+  if (fundo) {
+    fundo.classList.add("ativo");
   }
+
+  var btnFechar = document.getElementById("btn-fechar-carrinho");
+  setTimeout(function () {
+    btnFechar.focus();
+  }, 100);
 }
 
-function init() {
-  loadCartFromStorage();
-  setupEventListeners();
-  setupThemeSwitcher();
-  renderProducts();
-  updateCartUI();
-  lucide.createIcons();
-  initScrollAnimations();
+function fecharCarrinho() {
+  var lateral = document.getElementById("barra-lateral-carrinho");
+  lateral.classList.remove("aberto");
+  lateral.setAttribute("aria-hidden", "true");
+
+  var fundo = document.getElementById("camada-sobreposicao");
+  if (fundo) {
+    fundo.classList.remove("ativo");
+  }
+
+  var btnCar = document.getElementById("btn-abrir-carrinho");
+  if (btnCar) btnCar.focus();
 }
 
-function saveCartToStorage() {
-  localStorage.setItem("lordore_cart", JSON.stringify(cart));
+function irParaPagamento() {
+  var vistaCar = document.getElementById("vista-carrinho");
+  var vistaPag = document.getElementById("vista-pagamento");
+  var lateral = document.getElementById("barra-lateral-carrinho");
+
+  vistaCar.classList.add("oculto");
+  vistaPag.classList.remove("oculto");
+  vistaPag.setAttribute("aria-hidden", "false");
+
+  lateral.classList.add("tela-cheia");
+  lateral.style.width = "100vw";
 }
 
-function loadCartFromStorage() {
-  const saved = localStorage.getItem("lordore_cart");
-  if (saved) {
-    try {
-      cart = JSON.parse(saved);
-    } catch (e) {
-      console.error("Erro ao carregar carrinho do localStorage", e);
-      cart = [];
+function voltarDoPagamento() {
+  var vistaCar = document.getElementById("vista-carrinho");
+  var vistaPag = document.getElementById("vista-pagamento");
+  var lateral = document.getElementById("barra-lateral-carrinho");
+
+  vistaPag.classList.add("oculto");
+  vistaPag.setAttribute("aria-hidden", "true");
+  lateral.classList.remove("tela-cheia");
+  vistaCar.classList.remove("oculto");
+  lateral.style.width = "";
+}
+
+function finalizarCompra() {
+  var conteudoPagamento = document.getElementById("conteudo-pagamento");
+  var telaSucesso = document.getElementById("mensagem-sucesso");
+  var detalhesSucesso = document.getElementById("texto-detalhes-sucesso");
+  var totalSucesso = document.getElementById("texto-total-sucesso");
+
+  conteudoPagamento.classList.add("oculto");
+
+  telaSucesso.classList.remove("oculto");
+  telaSucesso.setAttribute("aria-hidden", "false");
+
+  var itensComprados = catalogo.filter(function (produto) {
+    return carrinho.includes(produto.id);
+  });
+
+  var nomesItens = [];
+  for (var i = 0; i < itensComprados.length; i++) {
+    var p = itensComprados[i];
+    var qtd = carrinho.filter(function (id) {
+      return id === p.id;
+    }).length;
+    nomesItens.push(p.nome + " (x" + qtd + ")");
+  }
+
+  detalhesSucesso.textContent = nomesItens.join(" • ");
+
+  var totalPago = 0;
+  for (var j = 0; j < carrinho.length; j++) {
+    var item = catalogo.find(function (p) {
+      return p.id === carrinho[j];
+    });
+    if (item) {
+      totalPago = totalPago + item.preco;
     }
   }
+  totalSucesso.textContent = "Total Pago: " + formatarPreco(totalPago);
+
+  carrinho = [];
+  salvarCarrinhoNoNavegador();
 }
 
-function initScrollAnimations() {
-  gsap.registerPlugin(ScrollTrigger);
+function retornarParaLoja() {
+  var telaSucesso = document.getElementById("mensagem-sucesso");
+  var conteudoPag = document.getElementById("conteudo-pagamento");
+  var vistaPag = document.getElementById("vista-pagamento");
+  var vistaCar = document.getElementById("vista-carrinho");
+  var lateral = document.getElementById("barra-lateral-carrinho");
 
-  const heroTl = gsap.timeline();
-  heroTl
-    .to(".hero-tagline", {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "power3.out",
-      delay: 0.2,
-    })
-    .to(
-      ".hero-title-line",
-      { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out" },
-      "-=0.6",
-    )
-    .to(
-      ".hero-description",
-      { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-      "-=0.4",
-    )
-    .to(
-      ".btn-hero",
-      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-      "-=0.4",
-    );
+  telaSucesso.classList.add("oculto");
+  telaSucesso.setAttribute("aria-hidden", "true");
+  conteudoPag.classList.remove("oculto");
+  vistaPag.classList.add("oculto");
+  vistaCar.classList.remove("oculto");
+  lateral.classList.remove("tela-cheia");
+  lateral.style.width = "";
+
+  fecharCarrinho();
+  atualizarInterfaceCarrinho();
+}
+
+function configurarEventos() {
+  var linksMenu = document.querySelectorAll(".link-navegacao");
+  for (var i = 0; i < linksMenu.length; i++) {
+    linksMenu[i].addEventListener("click", function (evento) {
+      for (var j = 0; j < linksMenu.length; j++) {
+        linksMenu[j].classList.remove("ativo");
+      }
+      evento.currentTarget.classList.add("ativo");
+
+      categoriaAtual = evento.currentTarget.dataset.category;
+      renderizarProdutos();
+
+      document
+        .getElementById("secao-catalogo")
+        .scrollIntoView({ behavior: "smooth" });
+    });
+  }
+
   window.addEventListener(
     "scroll",
-    () => {
+    function () {
+      var cabecalho = document.getElementById("cabecalho-site");
       if (window.scrollY > 50) {
-        DOM.header.classList.add("scrolled");
+        cabecalho.classList.add("rolado");
       } else {
-        DOM.header.classList.remove("scrolled");
+        cabecalho.classList.remove("rolado");
       }
     },
     { passive: true },
   );
-}
 
-function showToast(message) {
-  if (toastTimeout) clearTimeout(toastTimeout);
+  var btnAbrirBusca = document.getElementById("btn-abrir-busca");
+  var btnFecharBusca = document.getElementById("btn-fechar-busca");
+  var painelBusca = document.getElementById("painel-busca");
+  var inputBusca = document.getElementById("input-busca");
 
-  DOM.toastMessage.textContent = message;
-  DOM.toast.classList.add("show");
+  btnAbrirBusca.addEventListener("click", function () {
+    painelBusca.classList.add("aberto");
+    btnAbrirBusca.setAttribute("aria-expanded", "true");
+    inputBusca.focus();
+  });
 
-  toastTimeout = setTimeout(() => {
-    DOM.toast.classList.remove("show");
-  }, 3000);
-}
-
-function formatPrice(value) {
-  return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-}
-
-function getFilteredProducts() {
-  let filtered = catalogo;
-  if (currentCategory !== "todos") {
-    filtered = filtered.filter((p) => p.category === currentCategory);
-  }
-
-  if (currentSearch.trim() !== "") {
-    const query = currentSearch.toLowerCase();
-    filtered = filtered.filter(
-      (p) =>
-        p.name.toLowerCase().includes(query) ||
-        p.brand.toLowerCase().includes(query) ||
-        p.notes.toLowerCase().includes(query),
-    );
-  }
-
-  if (currentSort !== "default") {
-    filtered = [...filtered];
-    switch (currentSort) {
-      case "price-asc":
-        filtered.sort((a, b) => a.price - b.price);
-        break;
-      case "price-desc":
-        filtered.sort((a, b) => b.price - a.price);
-        break;
-      case "name-asc":
-        filtered.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case "name-desc":
-        filtered.sort((a, b) => b.name.localeCompare(a.name));
-        break;
-    }
-  }
-  return filtered;
-}
-
-function renderProducts() {
-  const productsToRender = getFilteredProducts();
-
-  DOM.productCount.textContent = `Mostrando ${productsToRender.length} fragrância(s)`;
-
-  if (productsToRender.length === 0) {
-    DOM.productGrid.innerHTML = "";
-    DOM.noResults.classList.remove("hidden");
-    return;
-  }
-
-  DOM.noResults.classList.add("hidden");
-  DOM.productGrid.innerHTML = "";
-
-  productsToRender.forEach((produto, index) => {
-    const btnText = "Adicionar ao Carrinho";
-    const btnClass = "btn-add-cart";
-
-    const card = document.createElement("article");
-    card.className = "product-card";
-    const delay = prefersReducedMotion ? 0 : index * 100;
-
-    card.innerHTML = `
-            <div class="product-image-container">
-                <span class="category-tag">${produto.category}</span>
-                <img src="${produto.image}" alt="${produto.name} - ${produto.brand}" class="product-image" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800&auto=format&fit=crop'">
-            </div>
-            <div class="product-info">
-                <span class="product-brand">${produto.brand}</span>
-                <h3 class="product-name">${produto.name}</h3>
-                <p class="product-olfactory-family">${produto.olfactoryFamily}</p>
-                <p class="product-notes">${produto.notes}</p>
-                <div class="product-footer">
-                    <span class="product-price">${formatPrice(produto.price)}</span>
-                    <button class="${btnClass}" data-id="${produto.id}" aria-label="Adicionar ${produto.name} ao carrinho">
-                        <span><i data-lucide="plus" style="width: 14px; height: 14px; margin-right: 4px; display: inline-block; vertical-align: middle;"></i>${btnText}</span>
-                    </button>
-                </div>
-            </div>
-        `;
-
-    DOM.productGrid.appendChild(card);
-    if (!prefersReducedMotion) {
-      ScrollTrigger.create({
-        trigger: card,
-        start: "top 90%",
-        onEnter: () => card.classList.add("revealed"),
-        once: true,
-      });
-    } else {
-      card.classList.add("revealed");
+  btnFecharBusca.addEventListener("click", function () {
+    painelBusca.classList.remove("aberto");
+    btnAbrirBusca.setAttribute("aria-expanded", "false");
+    if (buscaAtual !== "") {
+      buscaAtual = "";
+      inputBusca.value = "";
+      renderizarProdutos();
     }
   });
 
-  lucide.createIcons();
-}
-
-function addToCart(productId) {
-  cart.push(productId);
-  saveCartToStorage();
-  updateCartUI();
-  DOM.cartBadge.classList.remove("bump");
-  void DOM.cartBadge.offsetWidth;
-  DOM.cartBadge.classList.add("bump");
-  const cardBtn = document.querySelector(
-    `.btn-add-cart[data-id="${productId}"]`,
-  );
-  if (cardBtn) {
-    const card = cardBtn.closest(".product-card");
-    if (card) {
-      card.classList.remove("card-pulse");
-      void card.offsetWidth;
-      card.classList.add("card-pulse");
-      card.addEventListener(
-        "animationend",
-        () => card.classList.remove("card-pulse"),
-        { once: true },
-      );
-    }
-  }
-}
-
-function removeFromCart(productId, removeAll = false) {
-  if (removeAll) {
-    cart = cart.filter((id) => id !== productId);
-  } else {
-    const lastIndex = cart.lastIndexOf(productId);
-    if (lastIndex !== -1) {
-      cart.splice(lastIndex, 1);
-    }
-  }
-  saveCartToStorage();
-  updateCartUI();
-}
-
-function updateCartUI() {
-  DOM.cartBadge.textContent = cart.length;
-
-  if (cart.length === 0) {
-    DOM.cartItemsContainer.innerHTML = `
-            <div class="empty-cart-state">
-                <i data-lucide="shopping-bag"></i>
-                <p>Sua coleção está vazia.</p>
-                <button class="btn-secondary-outline" id="empty-cart-close-btn">Descobrir Fragrâncias</button>
-            </div>
-        `;
-    DOM.cartSubtotal.textContent = "R$ 0,00";
-    DOM.cartTotal.textContent = "R$ 0,00";
-    DOM.goToCheckoutBtn.disabled = true;
-    const savingsRow = document.getElementById("cart-savings-row");
-    if (savingsRow) savingsRow.classList.add("hidden");
-    lucide.createIcons();
-    document
-      .getElementById("empty-cart-close-btn")
-      ?.addEventListener("click", closeCart);
-    return;
-  }
-
-  DOM.goToCheckoutBtn.disabled = false;
-  DOM.cartItemsContainer.innerHTML = "";
-  const uniqueItems = catalogo.filter((produto) => cart.includes(produto.id));
-  const totalPrice = cart.reduce((total, currentId) => {
-    const item = catalogo.find((p) => p.id === currentId);
-    return total + (item ? item.price : 0);
-  }, 0);
-  const totalOriginalPrice = cart.reduce((total, currentId) => {
-    const item = catalogo.find((p) => p.id === currentId);
-    return total + (item ? item.originalPrice || item.price : 0);
-  }, 0);
-  const savings = totalOriginalPrice - totalPrice;
-  uniqueItems.forEach((produto) => {
-    const quantity = cart.filter((id) => id === produto.id).length;
-
-    let priceHTML = `<div class="cart-item-price">${formatPrice(produto.price)}</div>`;
-    if (produto.originalPrice && produto.originalPrice > produto.price) {
-      priceHTML = `
-                <div class="cart-item-price">
-                    <span style="text-decoration: line-through; font-size: 0.75rem; color: var(--text-secondary); margin-right: 4px;">${formatPrice(produto.originalPrice)}</span>
-                    <span style="color: var(--color-success);">${formatPrice(produto.price)}</span>
-                </div>
-            `;
-    }
-
-    const itemEl = document.createElement("div");
-    itemEl.className = "cart-item-card";
-    itemEl.innerHTML = `
-            <img src="${produto.image}" alt="${produto.name}" class="cart-item-thumb">
-            <div class="cart-item-details">
-                <span class="cart-item-brand">${produto.brand}</span>
-                <h4 class="cart-item-name">${produto.name}</h4>
-                ${priceHTML}
-                <div class="cart-item-controls">
-                    <button class="qty-btn remove-qty" data-id="${produto.id}" aria-label="Diminuir quantidade">-</button>
-                    <span class="qty-display" aria-label="Quantidade: ${quantity}">${quantity}</span>
-                    <button class="qty-btn add-qty" data-id="${produto.id}" aria-label="Aumentar quantidade">+</button>
-                    <button class="btn-remove-item" data-id="${produto.id}" aria-label="Remover item">
-                        <i data-lucide="trash-2"></i>
-                    </button>
-                </div>
-            </div>
-        `;
-    DOM.cartItemsContainer.appendChild(itemEl);
-  });
-
-  const formattedTotal = formatPrice(totalPrice);
-  const savingsRow = document.getElementById("cart-savings-row");
-  const savingsValue = document.getElementById("cart-savings-value");
-  if (savingsRow && savingsValue) {
-    if (savings > 0) {
-      savingsRow.classList.remove("hidden");
-      savingsValue.textContent = `- ${formatPrice(savings)}`;
-    } else {
-      savingsRow.classList.add("hidden");
-    }
-  }
-  if (totalPrice !== currentTotalValue) {
-    animateValue(DOM.cartSubtotal, currentTotalValue, totalPrice, 600);
-    animateValue(DOM.cartTotal, currentTotalValue, totalPrice, 600);
-  } else {
-    DOM.cartSubtotal.textContent = formattedTotal;
-    DOM.cartTotal.textContent = formattedTotal;
-  }
-  updateCheckoutUI(uniqueItems, totalPrice);
-
-  currentTotalValue = totalPrice;
-  lucide.createIcons();
-
-  gsap.fromTo(
-    ".cart-item-card",
-    { y: 20, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: "power2.out" },
-  );
-}
-
-function updateCheckoutUI(uniqueItems, totalPrice) {
-  DOM.checkoutSummaryList.innerHTML = "";
-  uniqueItems.forEach((produto) => {
-    const quantity = cart.filter((id) => id === produto.id).length;
-    const itemLine = document.createElement("div");
-    itemLine.className = "checkout-summary-item";
-    itemLine.innerHTML = `
-            <div style="flex: 1;">
-                <span style="font-size:0.7rem; color:var(--gold-primary); text-transform:uppercase;">${produto.brand}</span>
-                <h4 style="font-family:var(--font-serif); font-size:1.1rem; font-weight:400;">${produto.name} <span style="color:var(--text-secondary); font-family:var(--font-sans); font-size:0.8rem;">x${quantity}</span></h4>
-            </div>
-            <div style="font-weight:500;">
-                ${formatPrice(produto.price * quantity)}
-            </div>
-        `;
-    DOM.checkoutSummaryList.appendChild(itemLine);
-  });
-
-  const formattedTotal = formatPrice(totalPrice);
-
-  if (totalPrice !== currentTotalValue) {
-    animateValue(DOM.checkoutSubtotal, currentTotalValue, totalPrice, 600);
-    animateValue(DOM.checkoutTotalValue, currentTotalValue, totalPrice, 600);
-  } else {
-    DOM.checkoutSubtotal.textContent = formattedTotal;
-    DOM.checkoutTotalValue.textContent = formattedTotal;
-  }
-  updateInstallments(totalPrice);
-}
-function openCart() {
-  DOM.sidebar.classList.add("open");
-  DOM.sidebar.setAttribute("aria-hidden", "false");
-  setTimeout(() => DOM.closeCartBtn.focus(), 100);
-  startCuriosities();
-}
-
-function closeCart() {
-  DOM.sidebar.classList.remove("open");
-  DOM.sidebar.setAttribute("aria-hidden", "true");
-  DOM.cartBtn.focus();
-  clearInterval(curiosityInterval);
-}
-function transitionToCheckout() {
-  const tl = gsap.timeline();
-  tl.to(DOM.cartView, {
-    opacity: 0,
-    x: -20,
-    duration: 0.3,
-    onComplete: () => {
-      DOM.cartView.classList.add("hidden");
-      DOM.checkoutView.classList.remove("hidden");
-      DOM.checkoutView.setAttribute("aria-hidden", "false");
-      DOM.sidebar.classList.add("fullscreen");
-    },
-  });
-  tl.to(
-    DOM.sidebar,
-    {
-      width: "100vw",
-      duration: 0.6,
-      ease: "power3.inOut",
-    },
-    "-=0.1",
-  );
-
-  tl.fromTo(
-    DOM.checkoutContent,
-    { opacity: 0 },
-    { opacity: 1, duration: 0.4 },
-  ).fromTo(
-    [".checkout-header", ".checkout-items-card", ".checkout-payment-card"],
-    { y: 30, opacity: 0 },
-    { y: 0, opacity: 1, stagger: 0.1, duration: 0.5, ease: "power2.out" },
-    "-=0.2",
-  );
-}
-
-function reverterCheckout() {
-  const tl = gsap.timeline();
-  tl.to(DOM.checkoutView, {
-    opacity: 0,
-    duration: 0.3,
-    onComplete: () => {
-      DOM.checkoutView.classList.add("hidden");
-      DOM.checkoutView.setAttribute("aria-hidden", "true");
-      DOM.sidebar.classList.remove("fullscreen");
-      DOM.cartView.classList.remove("hidden");
-    },
-  });
-  tl.to(DOM.sidebar, {
-    width: "var(--cart-width)",
-    duration: 0.5,
-    ease: "power3.inOut",
-  });
-  tl.fromTo(
-    DOM.cartView,
-    { opacity: 0, x: 20 },
-    { opacity: 1, x: 0, duration: 0.3 },
-  );
-}
-
-function finalizePurchase() {
-  const tl = gsap.timeline();
-  tl.to(DOM.checkoutContent, {
-    opacity: 0,
-    scale: 0.98,
-    duration: 0.4,
-    onComplete: () => {
-      DOM.checkoutContent.classList.add("hidden");
-      DOM.successMessage.classList.remove("hidden");
-      DOM.successMessage.setAttribute("aria-hidden", "false");
-      const boughtItems = catalogo.filter((produto) =>
-        cart.includes(produto.id),
-      );
-      const itemNames = boughtItems.map((p) => {
-        const qty = cart.filter((id) => id === p.id).length;
-        return `${p.name} (x${qty})`;
-      });
-      DOM.successDetailsText.textContent = itemNames.join(" • ");
-      const total = cart.reduce((acc, curr) => {
-        const item = catalogo.find((p) => p.id === curr);
-        return acc + (item ? item.price : 0);
-      }, 0);
-      DOM.successTotalText.textContent = `Total Pago: ${formatPrice(total)}`;
-      cart = [];
-      saveCartToStorage();
-      const funnyText = getFunnyComparison(total);
-      const funnyEl = document.getElementById("funny-comparison");
-      animateTimeline();
-      if (funnyEl) funnyEl.textContent = funnyText;
-    },
-  });
-  tl.fromTo(
-    DOM.successMessage,
-    { opacity: 0, y: 20 },
-    { opacity: 1, y: 0, duration: 0.6, delay: 0.1 },
-  );
-}
-function retornarALoja() {
-  DOM.successMessage.classList.add("hidden");
-  DOM.successMessage.setAttribute("aria-hidden", "true");
-  DOM.checkoutContent.classList.remove("hidden");
-  DOM.checkoutView.classList.add("hidden");
-  DOM.cartView.classList.remove("hidden");
-  DOM.sidebar.classList.remove("fullscreen");
-  DOM.sidebar.style.width = "";
-  closeCart();
-  gsap.set(DOM.cartView, { opacity: 1, x: 0 });
-  gsap.set(DOM.checkoutContent, { opacity: 1, scale: 1 });
-
-  updateCartUI();
-}
-
-function setupEventListeners() {
-  DOM.navLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      DOM.navLinks.forEach((l) => l.classList.remove("active"));
-      e.currentTarget.classList.add("active");
-      currentCategory = e.currentTarget.dataset.category;
-      renderProducts();
-      document
-        .getElementById("catalog-section")
-        .scrollIntoView({ behavior: "smooth" });
-      if (window.innerWidth <= 768) {
-        toggleMobileMenu(false);
-      }
-    });
-  });
-  DOM.mobileMenuBtn.addEventListener("click", () => {
-    const isExpanded =
-      DOM.mobileMenuBtn.getAttribute("aria-expanded") === "true";
-    toggleMobileMenu(!isExpanded);
-  });
-  function toggleMobileMenu(forceState) {
-    if (forceState) {
-      DOM.mainNav.classList.add("open");
-      DOM.mobileMenuBtn.setAttribute("aria-expanded", "true");
-      document.body.classList.add("cart-open"); // bloqueia scroll
-    } else {
-      DOM.mainNav.classList.remove("open");
-      DOM.mobileMenuBtn.setAttribute("aria-expanded", "false");
-      document.body.classList.remove("cart-open");
-    }
-  }
-
-  DOM.searchToggleBtn.addEventListener("click", () => {
-    DOM.searchPanel.classList.add("open");
-    DOM.searchToggleBtn.setAttribute("aria-expanded", "true");
-    DOM.searchInput.focus();
-  });
-
-  DOM.searchCloseBtn.addEventListener("click", () => {
-    DOM.searchPanel.classList.remove("open");
-    DOM.searchToggleBtn.setAttribute("aria-expanded", "false");
-    if (currentSearch !== "") {
-      currentSearch = "";
-      DOM.searchInput.value = "";
-      renderProducts();
-    }
-  });
-
-  let searchTimeout;
-  DOM.searchInput.addEventListener("input", (e) => {
-    clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => {
-      currentSearch = e.target.value;
-      renderProducts();
-      if (currentSearch.trim() !== "") {
+  var delayBusca;
+  inputBusca.addEventListener("input", function (evento) {
+    clearTimeout(delayBusca);
+    delayBusca = setTimeout(function () {
+      buscaAtual = evento.target.value;
+      renderizarProdutos();
+      if (buscaAtual.trim() !== "") {
         document
-          .getElementById("catalog-section")
+          .getElementById("secao-catalogo")
           .scrollIntoView({ behavior: "smooth" });
       }
     }, 300);
   });
 
-  DOM.clearFiltersBtn.addEventListener("click", () => {
-    currentSearch = "";
-    DOM.searchInput.value = "";
-    currentCategory = "todos";
-    DOM.navLinks.forEach((l) => l.classList.remove("active"));
-    DOM.navLinks[0].classList.add("active");
-    renderProducts();
-  });
-
-  DOM.cartBtn.addEventListener("click", openCart);
-  DOM.closeCartBtn.addEventListener("click", closeCart);
-  DOM.continueShoppingBtn.addEventListener("click", closeCart);
-  DOM.overlay.addEventListener("click", () => {
-    if (
-      DOM.sidebar.classList.contains("open") &&
-      !DOM.sidebar.classList.contains("fullscreen")
-    ) {
-      closeCart();
-    }
-  });
-
-  DOM.productGrid.addEventListener("click", (e) => {
-    const addBtn = e.target.closest(".btn-add-cart");
-    if (addBtn && !addBtn.classList.contains("added") && !addBtn.disabled) {
-      const id = parseInt(addBtn.dataset.id);
-      addBtn.disabled = true;
-      addBtn.classList.add("added");
-      const span = addBtn.querySelector("span");
-      span.innerHTML =
-        '<i data-lucide="check" style="width: 14px; height: 14px; margin-right: 4px; display: inline-block; vertical-align: middle;"></i>Adicionado';
-      lucide.createIcons();
-      const card = addBtn.closest(".product-card");
-      const img = card.querySelector("img");
-      const cartIcon = document.getElementById("cart-toggle-btn");
-
-      if (img && cartIcon) {
-        const clone = img.cloneNode();
-        const imgRect = img.getBoundingClientRect();
-        const cartRect = cartIcon.getBoundingClientRect();
-        clone.style.position = "fixed";
-        clone.style.left = imgRect.left + "px";
-        clone.style.top = imgRect.top + "px";
-        clone.style.width = imgRect.width + "px";
-        clone.style.height = imgRect.height + "px";
-        clone.style.zIndex = "9999";
-        clone.style.borderRadius = "8px";
-        clone.style.opacity = "0.8";
-        clone.style.pointerEvents = "none";
-        document.body.appendChild(clone);
-        gsap.to(clone, {
-          x: cartRect.left - imgRect.left,
-          y: cartRect.top - imgRect.top,
-          scale: 0.1,
-          opacity: 0,
-          duration: 0.6,
-          ease: "power2.inOut",
-          onComplete: () => {
-            clone.remove();
-            addToCart(id);
-            openCart();
-          },
-        });
-      } else {
-        addToCart(id);
-        setTimeout(() => openCart(), 300);
+  var btnLimpar = document.getElementById("btn-limpar-filtros");
+  if (btnLimpar) {
+    btnLimpar.addEventListener("click", function () {
+      buscaAtual = "";
+      inputBusca.value = "";
+      categoriaAtual = "todos";
+      for (var k = 0; k < linksMenu.length; k++) {
+        linksMenu[k].classList.remove("ativo");
       }
+      linksMenu[0].classList.add("ativo");
+      renderizarProdutos();
+    });
+  }
 
-      setTimeout(() => {
-        addBtn.disabled = false;
-        addBtn.classList.remove("added");
-        span.innerHTML =
-          '<i data-lucide="plus" style="width: 14px; height: 14px; margin-right: 4px; display: inline-block; vertical-align: middle;"></i>Adicionar ao Carrinho';
-        lucide.createIcons();
+  var grade = document.getElementById("grade-produtos");
+  grade.addEventListener("click", function (evento) {
+    var btnAdd = evento.target.closest(".btn-adicionar-carrinho");
+    if (btnAdd && !btnAdd.disabled) {
+      var meuId = parseInt(btnAdd.dataset.id);
+
+      btnAdd.disabled = true;
+      var spanBtn = btnAdd.querySelector("span");
+      spanBtn.textContent = "Adicionado ✓";
+
+      mostrarNotificacao("Fragrância adicionada à sua coleção.");
+
+      adicionarAoCarrinho(meuId);
+      abrirCarrinho();
+
+      setTimeout(function () {
+        btnAdd.disabled = false;
+        spanBtn.textContent = "Adicionar ao Carrinho";
       }, 1500);
     }
   });
 
-  DOM.cartItemsContainer.addEventListener("click", (e) => {
-    const btnAdd = e.target.closest(".add-qty");
-    const btnRemoveQty = e.target.closest(".remove-qty");
-    const btnTrash = e.target.closest(".btn-remove-item");
+  var btnAbrirLateral = document.getElementById("btn-abrir-carrinho");
+  var btnFecharLateral = document.getElementById("btn-fechar-carrinho");
+  var btnContComprar = document.getElementById("btn-continuar-comprando");
 
-    if (btnAdd) {
-      const qtyDisplay = btnAdd
-        .closest(".cart-item-controls")
-        ?.querySelector(".qty-display");
-      if (qtyDisplay) {
-        qtyDisplay.classList.remove("qty-flash");
-        void qtyDisplay.offsetWidth;
-        qtyDisplay.classList.add("qty-flash");
-        qtyDisplay.addEventListener(
-          "animationend",
-          () => qtyDisplay.classList.remove("qty-flash"),
-          { once: true },
-        );
-      }
-      addToCart(parseInt(btnAdd.dataset.id));
-    } else if (btnRemoveQty) {
-      const qtyDisplay = btnRemoveQty
-        .closest(".cart-item-controls")
-        ?.querySelector(".qty-display");
-      if (qtyDisplay) {
-        qtyDisplay.classList.remove("qty-flash");
-        void qtyDisplay.offsetWidth;
-        qtyDisplay.classList.add("qty-flash");
-        qtyDisplay.addEventListener(
-          "animationend",
-          () => qtyDisplay.classList.remove("qty-flash"),
-          { once: true },
-        );
-      }
-      removeFromCart(parseInt(btnRemoveQty.dataset.id));
-    } else if (btnTrash) {
-      removeFromCart(parseInt(btnTrash.dataset.id), true);
+  btnAbrirLateral.addEventListener("click", abrirCarrinho);
+  btnFecharLateral.addEventListener("click", fecharCarrinho);
+  btnContComprar.addEventListener("click", fecharCarrinho);
+
+  var sobreposicao = document.getElementById("camada-sobreposicao");
+  sobreposicao.addEventListener("click", function () {
+    var lateral = document.getElementById("barra-lateral-carrinho");
+    if (
+      lateral.classList.contains("aberto") &&
+      !lateral.classList.contains("tela-cheia")
+    ) {
+      fecharCarrinho();
     }
   });
 
-  DOM.goToCheckoutBtn.addEventListener("click", transitionToCheckout);
-  DOM.cancelCheckoutBtn.addEventListener("click", reverterCheckout);
-  DOM.paymentOptions.forEach((option) => {
-    option.addEventListener("click", () => {
-      DOM.paymentOptions.forEach((opt) => opt.classList.remove("selected"));
-      option.classList.add("selected");
-      const radio = option.querySelector('input[type="radio"]');
-      radio.checked = true;
-      const method = option.dataset.method;
-      const pixDetails = document.getElementById("pix-details");
-      const cardDetails = document.getElementById("card-details");
-      if (method === "pix") {
-        pixDetails.classList.remove("hidden");
-        pixDetails.classList.add("active");
-        cardDetails.classList.add("hidden");
-        cardDetails.classList.remove("active");
-        startPixTimer();
+  var containerCarrinhoItens = document.getElementById(
+    "container-itens-carrinho",
+  );
+  containerCarrinhoItens.addEventListener("click", function (evento) {
+    var btnMais = evento.target.closest(".adicionar-quantidade");
+    var btnMenos = evento.target.closest(".remover-quantidade");
+    var btnLixo = evento.target.closest(".btn-remover-item");
+
+    if (btnMais) {
+      adicionarAoCarrinho(parseInt(btnMais.dataset.id));
+    } else if (btnMenos) {
+      removerDoCarrinho(parseInt(btnMenos.dataset.id));
+    } else if (btnLixo) {
+      removerDoCarrinho(parseInt(btnLixo.dataset.id), true);
+    }
+  });
+
+  var btnIrCheckout = document.getElementById("btn-ir-pagamento");
+  var btnVoltarCheckout = document.getElementById("btn-cancelar-pagamento");
+
+  btnIrCheckout.addEventListener("click", irParaPagamento);
+  btnVoltarCheckout.addEventListener("click", voltarDoPagamento);
+
+  var botoesMetodo = document.querySelectorAll(".opcao-pagamento");
+  for (var p = 0; p < botoesMetodo.length; p++) {
+    botoesMetodo[p].addEventListener("click", function () {
+      var aOpcao = this;
+
+      for (var q = 0; q < botoesMetodo.length; q++) {
+        botoesMetodo[q].classList.remove("selecionado");
+      }
+
+      aOpcao.classList.add("selecionado");
+
+      var rad = aOpcao.querySelector('input[type="radio"]');
+      if (rad) rad.checked = true;
+
+      var oMetodo = aOpcao.dataset.method;
+      var blocoPix = document.getElementById("detalhes-pix");
+      var blocoCartao = document.getElementById("detalhes-cartao");
+
+      if (oMetodo === "pix") {
+        blocoPix.classList.remove("oculto");
+        blocoPix.classList.add("ativo");
+        blocoCartao.classList.add("oculto");
+        blocoCartao.classList.remove("ativo");
+        iniciarCronometroPix();
       } else {
-        cardDetails.classList.remove("hidden");
-        cardDetails.classList.add("active");
-        pixDetails.classList.add("hidden");
-        pixDetails.classList.remove("active");
-        clearInterval(pixInterval);
+        blocoCartao.classList.remove("oculto");
+        blocoCartao.classList.add("ativo");
+        blocoPix.classList.add("oculto");
+        blocoPix.classList.remove("ativo");
+        clearInterval(intervaloPix);
       }
     });
-  });
-  startPixTimer();
-  const btnCopyPix = document.getElementById("btn-copy-pix");
-  if (btnCopyPix) {
-    btnCopyPix.addEventListener("click", () => {
-      const input = document.getElementById("pix-copy-input");
-      input.select();
-      input.setSelectionRange(0, 99999);
-      navigator.clipboard.writeText(input.value);
-      const originalHTML = btnCopyPix.innerHTML;
-      btnCopyPix.innerHTML = '<i data-lucide="check"></i> Copiado!';
+  }
+
+  var btnCopia = document.getElementById("btn-copiar-pix");
+  if (btnCopia) {
+    btnCopia.addEventListener("click", function () {
+      var entradaTexto = document.getElementById("input-copia-pix");
+      entradaTexto.select();
+      entradaTexto.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(entradaTexto.value);
+
+      var originalHTML = btnCopia.innerHTML;
+      btnCopia.innerHTML = '<i data-lucide="check"></i> Copiado!';
       lucide.createIcons();
-      setTimeout(() => {
-        btnCopyPix.innerHTML = originalHTML;
+
+      setTimeout(function () {
+        btnCopia.innerHTML = originalHTML;
         lucide.createIcons();
       }, 2000);
     });
   }
 
-  const cardNumberInput = document.getElementById("card-number");
-  const visualCardNumber = document.getElementById("visual-card-number");
-  const visualCardFlag = document.getElementById("visual-card-flag");
+  var inputCartao = document.getElementById("numero-cartao");
+  var visualNumCartao = document.getElementById("numero-cartao-visual");
+  var visualBandCartao = document.getElementById("bandeira-cartao-visual");
 
-  if (cardNumberInput) {
-    cardNumberInput.addEventListener("input", (e) => {
-      let value = e.target.value.replace(/\D/g, "");
-      value = value.replace(/(\d{4})/g, "$1 ").trim();
-      e.target.value = value;
-      visualCardNumber.textContent = value || "0000 0000 0000 0000";
+  if (inputCartao) {
+    inputCartao.addEventListener("input", function (e) {
+      var valor = e.target.value.replace(/\D/g, "");
+      valor = valor.replace(/(\d{4})/g, "$1 ").trim();
+      e.target.value = valor;
 
-      if (value.startsWith("4")) {
-        visualCardFlag.className = "card-flag visa";
-        visualCardFlag.textContent = "VISA";
-      } else if (value.startsWith("5")) {
-        visualCardFlag.className = "card-flag master";
-        visualCardFlag.textContent = "MASTER";
+      visualNumCartao.textContent = valor || "0000 0000 0000 0000";
+
+      if (valor.startsWith("4")) {
+        visualBandCartao.className = "bandeira-cartao visa";
+        visualBandCartao.textContent = "VISA";
+      } else if (valor.startsWith("5")) {
+        visualBandCartao.className = "bandeira-cartao master";
+        visualBandCartao.textContent = "MASTER";
       } else {
-        visualCardFlag.className = "card-flag";
-        visualCardFlag.textContent = "";
+        visualBandCartao.className = "bandeira-cartao";
+        visualBandCartao.textContent = "";
       }
     });
   }
 
-  const cardNameInput = document.getElementById("card-name");
-  const visualCardName = document.getElementById("visual-card-name");
-  if (cardNameInput) {
-    cardNameInput.addEventListener("input", (e) => {
-      visualCardName.textContent =
-        e.target.value.toUpperCase() || "NOME IMPRESSO";
+  var inputNome = document.getElementById("nome-cartao");
+  var visualNome = document.getElementById("nome-cartao-visual");
+  if (inputNome) {
+    inputNome.addEventListener("input", function (e) {
+      visualNome.textContent = e.target.value.toUpperCase() || "NOME IMPRESSO";
     });
   }
 
-  const cardExpiryInput = document.getElementById("card-expiry");
-  const visualCardExpiry = document.getElementById("visual-card-expiry");
-  if (cardExpiryInput) {
-    cardExpiryInput.addEventListener("input", (e) => {
-      let value = e.target.value.replace(/\D/g, "");
-      if (value.length > 2) {
-        value = value.substring(0, 2) + "/" + value.substring(2, 4);
+  var inputVal = document.getElementById("validade-cartao");
+  var visualVal = document.getElementById("validade-cartao-visual");
+  if (inputVal) {
+    inputVal.addEventListener("input", function (e) {
+      var valor = e.target.value.replace(/\D/g, "");
+      if (valor.length > 2) {
+        valor = valor.substring(0, 2) + "/" + valor.substring(2, 4);
       }
-      e.target.value = value;
-      visualCardExpiry.textContent = value || "MM/AA";
+      e.target.value = valor;
+      visualVal.textContent = valor || "MM/AA";
     });
   }
 
-  const printBtn = document.getElementById("print-receipt-btn");
-  if (printBtn) {
-    printBtn.addEventListener("click", () => {
+  var btnImprime = document.getElementById("btn-imprimir-recibo");
+  if (btnImprime) {
+    btnImprime.addEventListener("click", function () {
       window.print();
     });
   }
 
-  const clearCartBtn = document.getElementById("clear-cart-btn");
-  if (clearCartBtn) {
-    clearCartBtn.addEventListener("click", () => {
+  var btnEsvazia = document.getElementById("btn-esvaziar-carrinho");
+  if (btnEsvazia) {
+    btnEsvazia.addEventListener("click", function () {
       if (confirm("Tem certeza que deseja esvaziar seu carrinho?")) {
-        cart = [];
-        saveCartToStorage();
-        updateCartUI();
-        DOM.cartBadge.classList.remove("bump");
-        void DOM.cartBadge.offsetWidth;
-        DOM.cartBadge.classList.add("bump");
+        carrinho = [];
+        salvarCarrinhoNoNavegador();
+        atualizarInterfaceCarrinho();
       }
     });
   }
 
-  window.addEventListener("beforeunload", (e) => {
-    if (cart.length > 0) {
-      e.preventDefault();
-      e.returnValue = "";
-    }
-  });
+  var btnConfirmar = document.getElementById("btn-confirmar-compra");
+  btnConfirmar.addEventListener("click", function () {
+    var areaProgresso = document.getElementById(
+      "container-progresso-pagamento",
+    );
+    var linhaProg = document.getElementById("barra-progresso-pagamento");
+    var textoProg = document.getElementById("texto-progresso-pagamento");
 
-  const greetingEl = document.getElementById("top-greeting");
-  if (greetingEl) {
-    const hour = new Date().getHours();
-    if (hour < 12) {
-      greetingEl.textContent =
-        "Bom dia! Comece o dia com uma fragrância marcante.";
-    } else if (hour < 18) {
-      greetingEl.textContent =
-        "Boa tarde! Renove suas energias com as melhores notas.";
-    } else {
-      greetingEl.textContent =
-        "Boa noite! Prepare-se para a noite com um perfume inesquecível.";
-    }
-  }
+    btnConfirmar.disabled = true;
+    btnConfirmar.style.opacity = "0.4";
 
-  DOM.confirmPurchaseBtn.addEventListener("click", () => {
-    const btn = DOM.confirmPurchaseBtn;
-    const progressWrap = document.getElementById("checkout-progress-wrap");
-    const progressBar = document.getElementById("checkout-progress-bar");
-    const progressLabel = document.getElementById("checkout-progress-label");
+    areaProgresso.classList.remove("oculto");
+    linhaProg.style.width = "0%";
 
-    btn.disabled = true;
-    btn.style.opacity = "0.4";
-    progressWrap.classList.remove("hidden");
-    progressBar.style.width = "0%";
-
-    const etapas = [
-      { pct: 18, label: "Validando carrinho..." },
-      { pct: 42, label: "Processando pagamento..." },
-      { pct: 68, label: "Confirmando com o banco..." },
-      { pct: 88, label: "Emitindo nota fiscal..." },
-      { pct: 100, label: "Pedido confirmado!" },
+    var passosDeValidacao = [
+      { pct: 18, texto: "Validando seu carrinho..." },
+      { pct: 42, texto: "Conectando com o banco..." },
+      { pct: 68, texto: "Processando o pagamento..." },
+      { pct: 88, texto: "Gerando sua nota fiscal..." },
+      { pct: 100, texto: "Sucesso!" },
     ];
 
-    let step = 0;
-    const TOTAL_MS = 2500;
-    const interval = TOTAL_MS / etapas.length;
+    var passoAtual = 0;
+    var tempoTotalMilissegundos = 2500;
+    var tempoPorPasso = tempoTotalMilissegundos / passosDeValidacao.length;
 
-    const ticker = setInterval(() => {
-      if (step >= etapas.length) {
-        clearInterval(ticker);
-        setTimeout(() => {
-          progressWrap.classList.add("hidden");
-          progressBar.style.width = "0%";
-          btn.disabled = false;
-          btn.style.opacity = "";
-          finalizePurchase();
+    var andamentoAnimacao = setInterval(function () {
+      if (passoAtual >= passosDeValidacao.length) {
+        clearInterval(andamentoAnimacao);
+        setTimeout(function () {
+          areaProgresso.classList.add("oculto");
+          linhaProg.style.width = "0%";
+          btnConfirmar.disabled = false;
+          btnConfirmar.style.opacity = "";
+          finalizarCompra();
         }, 400);
         return;
       }
-      progressBar.style.width = etapas[step].pct + "%";
-      progressLabel.textContent = etapas[step].label;
-      step++;
-    }, interval);
+      linhaProg.style.width = passosDeValidacao[passoAtual].pct + "%";
+      textoProg.textContent = passosDeValidacao[passoAtual].texto;
+      passoAtual++;
+    }, tempoPorPasso);
   });
 
-  DOM.returnHomeBtn.addEventListener("click", retornarALoja);
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      if (DOM.searchPanel.classList.contains("open")) {
-        DOM.searchCloseBtn.click();
+  var btnVoltarIncial = document.getElementById("btn-voltar-loja");
+  btnVoltarIncial.addEventListener("click", retornarParaLoja);
+
+  document.addEventListener("keydown", function (eventoTec) {
+    if (eventoTec.key === "Escape") {
+      var painelB = document.getElementById("painel-busca");
+      var barraC = document.getElementById("barra-lateral-carrinho");
+
+      if (painelB.classList.contains("aberto")) {
+        btnFecharBusca.click();
       } else if (
-        DOM.sidebar.classList.contains("open") &&
-        !DOM.sidebar.classList.contains("fullscreen")
+        barraC.classList.contains("aberto") &&
+        !barraC.classList.contains("tela-cheia")
       ) {
-        closeCart();
+        fecharCarrinho();
       }
     }
   });
-}
 
-function setupThemeSwitcher() {
-  const themeBtns = document.querySelectorAll(".theme-btn");
-  const themeLink = document.getElementById("theme-stylesheet");
-
-  themeBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const tema = btn.dataset.theme;
-      if (temas[tema]) {
-        themeLink.href = temas[tema];
-      }
-      themeBtns.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-    });
-  });
-}
-
-document.addEventListener("DOMContentLoaded", init);
-
-function animateTimeline() {
-  const steps = document.querySelectorAll(".timeline-step");
-  let currentStep = 0;
-  steps.forEach((s) => s.classList.remove("active"));
-  if (steps.length > 0) steps[0].classList.add("active");
-
-  const interval = setInterval(() => {
-    if (currentStep < steps.length - 1) {
-      currentStep++;
-      steps[currentStep].classList.add("active");
+  var saudacao = document.getElementById("saudacao-topo");
+  if (saudacao) {
+    var hora = new Date().getHours();
+    if (hora < 12) {
+      saudacao.textContent =
+        "Bom dia! Comece o dia com uma fragrância marcante.";
+    } else if (hora < 18) {
+      saudacao.textContent =
+        "Boa tarde! Renove suas energias com as melhores notas.";
     } else {
-      clearInterval(interval);
+      saudacao.textContent =
+        "Boa noite! Prepare-se para a noite com um perfume inesquecível.";
     }
-  }, 1500);
+  }
 }
+
+function configurarTrocaDeTema() {
+  var botoesTema = document.querySelectorAll(".btn-tema");
+  var folhaDeEstilo = document.getElementById("theme-stylesheet");
+
+  for (var i = 0; i < botoesTema.length; i++) {
+    botoesTema[i].addEventListener("click", function () {
+      var oTema = this.dataset.theme;
+
+      if (temas[oTema]) {
+        folhaDeEstilo.href = temas[oTema];
+      }
+
+      for (var j = 0; j < botoesTema.length; j++) {
+        botoesTema[j].classList.remove("ativo");
+      }
+      this.classList.add("ativo");
+    });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", iniciar);
